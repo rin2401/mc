@@ -1,0 +1,1 @@
+Program(List(FuncDecl(Id("main"),List(),IntType,Block(List(),List(ArrayCell(CallExpr(Id("array"),List(IntLiteral(1),IntLiteral(2))),IntLiteral(0)))))))

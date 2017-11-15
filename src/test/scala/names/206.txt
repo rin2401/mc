@@ -1,0 +1,1 @@
+AST 6: declare 2 variable in multiple line

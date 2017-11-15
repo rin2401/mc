@@ -1,0 +1,10 @@
+
+    int a;
+    float b;
+    int main(){
+      a+241;
+      39-b;
+      b*a;
+      3.9/24.1;
+      return 1;
+    }

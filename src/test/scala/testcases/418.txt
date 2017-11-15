@@ -1,0 +1,6 @@
+
+    int a; 
+    int foo(string a){
+      a = 1;
+      return 1;
+    }

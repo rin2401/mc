@@ -1,0 +1,4 @@
+ int func(){
+                      do{}
+                      while(true)
+                    }

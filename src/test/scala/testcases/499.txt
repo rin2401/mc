@@ -1,0 +1,8 @@
+
+    void main(){
+      do
+        if(true) return;
+        else continue;
+        "rin2401";  
+      while(true); 
+      return;}

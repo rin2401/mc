@@ -1,0 +1,1 @@
+Program(List(FuncDecl(Id("sum"),List(VarDecl(Id("n"),IntType)),IntType,Block(List(VarDecl(Id("s"),IntType),VarDecl(Id("i"),IntType)),List(BinaryOp("=",Id("s"),IntLiteral(0)),For(BinaryOp("=",Id("i"),IntLiteral(1)),BinaryOp("<=",Id("i"),Id("n")),BinaryOp("=",Id("i"),BinaryOp("+",Id("i"),IntLiteral(1))),BinaryOp("=",Id("s"),BinaryOp("+",Id("s"),Id("i")))),Return(Some(Id("s"))))))))

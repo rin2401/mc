@@ -1,0 +1,1 @@
+Program(List(FuncDecl(Id("main"),List(),FloatType,Block(List(),List(Return(Some(BinaryOp("+",FloatLiteral(1.23f),BinaryOp("/",BinaryOp("%",BinaryOp("*",IntLiteral(4),Id("a")),IntLiteral(5)),Id("b"))))))))))

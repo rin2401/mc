@@ -1,0 +1,10 @@
+
+    void main(){
+      do
+        {
+          continue;
+          1;
+        }
+        2;
+      while(true); 
+    }

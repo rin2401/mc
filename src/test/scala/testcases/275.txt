@@ -1,0 +1,7 @@
+
+    void main(){
+      do
+        a=a+1;
+      while sum(3);
+    }
+    

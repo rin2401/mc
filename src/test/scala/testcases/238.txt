@@ -1,0 +1,8 @@
+
+    int main(){
+      do
+        a=a+1;
+        a=a+2;
+      while(a<10);
+    }
+    

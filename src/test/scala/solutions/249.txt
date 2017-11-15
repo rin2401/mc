@@ -1,0 +1,1 @@
+Program(List(FuncDecl(Id("array"),List(VarDecl(Id("a"),IntType),VarDecl(Id("b"),IntType)),ArrayPointerType(IntType),Block(List(VarDecl(Id("arr"),ArrayType(IntLiteral(2),IntType))),List(BinaryOp("=",ArrayCell(Id("arr"),IntLiteral(0)),Id("a")),BinaryOp("=",ArrayCell(Id("arr"),IntLiteral(1)),Id("b")),Return(Some(Id("arr"))))))))

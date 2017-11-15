@@ -1,0 +1,1 @@
+AST 78: minus sign with index expression

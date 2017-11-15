@@ -1,0 +1,17 @@
+
+    void putIn(int itemSize, int itemValue) {
+      int chart;   
+      int numItem;
+      int bagSize;
+      int sizeBag;
+      for (i = numItem; i > 0; i=i-1) {
+        if ((chart[i])[sizeBag] != (chart[i - 1])[sizeBag]) {
+          size=value = itemSize_at(i - 1);
+          addItem(size, value);
+          sizeBag = sizeBag-size;
+        }
+      }
+      cout("Put these items in bag from set");
+      showItem();
+    }
+    

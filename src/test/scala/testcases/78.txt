@@ -1,0 +1,3 @@
+float main (int a, float b) {
+                    string s = "This is a \p string";
+                  }

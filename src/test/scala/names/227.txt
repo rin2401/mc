@@ -1,0 +1,1 @@
+AST 27: equal operator

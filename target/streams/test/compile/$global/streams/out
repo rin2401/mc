@@ -1,0 +1,6 @@
+[0m[[0m[31merror[0m] [0m[0mC:\Users\rin.RIN\Desktop\ass2\src\test\scala\CheckerSuite.scala:685:83: type mismatch;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : Double(1.2)[0m
+[0m[[0m[31merror[0m] [0m[0m required: Float[0m
+[0m[[0m[31merror[0m] [0m[0m    val expected = "Type Mismatch In Expression: "+ArrayCell(Id("a"),FloatLiteral(1.2)).toString[0m
+[0m[[0m[31merror[0m] [0m[0m                                                                                  ^[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m

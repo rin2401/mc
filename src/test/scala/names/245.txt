@@ -1,0 +1,1 @@
+AST 45: factory function

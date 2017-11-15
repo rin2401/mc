@@ -1,0 +1,1 @@
+AST 73: do while stmt with conditional expression is index expression

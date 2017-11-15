@@ -1,0 +1,278 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<testsuite hostname="rin" name="AstSuite" tests="103" errors="0" failures="1" skipped="0" time="3.183">
+                     <properties>
+      <property name="jline.esc.timeout" value="0"/><property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/><property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_144\jre\bin"/><property name="java.vm.version" value="25.144-b01"/><property name="java.vm.vendor" value="Oracle Corporation"/><property name="java.vendor.url" value="http://java.oracle.com/"/><property name="path.separator" value=";"/><property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/><property name="file.encoding.pkg" value="sun.io"/><property name="user.country" value="US"/><property name="user.script" value=""/><property name="sun.java.launcher" value="SUN_STANDARD"/><property name="sun.os.patch.level" value=""/><property name="java.vm.specification.name" value="Java Virtual Machine Specification"/><property name="user.dir" value="C:\Users\rin.RIN\Desktop\ass2"/><property name="java.runtime.version" value="1.8.0_144-b01"/><property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/><property name="java.endorsed.dirs" value="C:\Program Files\Java\jdk1.8.0_144\jre\lib\endorsed"/><property name="os.arch" value="amd64"/><property name="java.io.tmpdir" value="C:\Users\rin.RIN\AppData\Local\Temp\"/><property name="line.separator" value="
+"/><property name="java.vm.specification.vendor" value="Oracle Corporation"/><property name="user.variant" value=""/><property name="os.name" value="Windows 10"/><property name="sun.jnu.encoding" value="Cp1252"/><property name="java.library.path" value="C:\Program Files\Java\jdk1.8.0_144\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files\Java\jdk1.8.0_144\bin;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\sbt\bin;C:\Users\rin.RIN\AppData\Local\Microsoft\WindowsApps;;."/><property name="java.specification.name" value="Java Platform API Specification"/><property name="java.class.version" value="52.0"/><property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/><property name="os.version" value="10.0"/><property name="user.home" value="C:\Users\rin.RIN"/><property name="user.timezone" value="Asia/Bangkok"/><property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/><property name="file.encoding" value="Cp1252"/><property name="java.specification.version" value="1.8"/><property name="sbt.log.format" value="true"/><property name="java.class.path" value="C:\Program Files (x86)\sbt\bin\sbt-launch.jar"/><property name="user.name" value="rin"/><property name="jline.shutdownhook" value="false"/><property name="java.vm.specification.version" value="1.8"/><property name="sun.java.command" value="xsbt.boot.Boot"/><property name="java.home" value="C:\Program Files\Java\jdk1.8.0_144\jre"/><property name="sun.arch.data.model" value="64"/><property name="user.language" value="en"/><property name="java.specification.vendor" value="Oracle Corporation"/><property name="awt.toolkit" value="sun.awt.windows.WToolkit"/><property name="java.vm.info" value="mixed mode"/><property name="java.version" value="1.8.0_144"/><property name="java.ext.dirs" value="C:\Program Files\Java\jdk1.8.0_144\jre\lib\ext;C:\WINDOWS\Sun\Java\lib\ext"/><property name="sun.boot.class.path" value="C:\Program Files\Java\jdk1.8.0_144\jre\lib\resources.jar;C:\Program Files\Java\jdk1.8.0_144\jre\lib\rt.jar;C:\Program Files\Java\jdk1.8.0_144\jre\lib\sunrsasign.jar;C:\Program Files\Java\jdk1.8.0_144\jre\lib\jsse.jar;C:\Program Files\Java\jdk1.8.0_144\jre\lib\jce.jar;C:\Program Files\Java\jdk1.8.0_144\jre\lib\charsets.jar;C:\Program Files\Java\jdk1.8.0_144\jre\lib\jfr.jar;C:\Program Files\Java\jdk1.8.0_144\jre\classes"/><property name="java.vendor" value="Oracle Corporation"/><property name="sun.stderr.encoding" value="cp437"/><property name="file.separator" value="\"/><property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/"/><property name="sun.io.unicode.encoding" value="UnicodeLittle"/><property name="sun.cpu.endian" value="little"/><property name="sun.stdout.encoding" value="cp437"/><property name="sun.desktop" value="windows"/><property name="sun.cpu.isalist" value="amd64"/>
+    </properties>
+                     <testcase classname="AstSuite" name="AST 1: declare a variable type int" time="0.117">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 2: declare a variable type float" time="0.015">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 3: declare a array 3 elements type string" time="0.016">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 4: declare 2 variable type boolean inline" time="0.016">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 5: declare a variable and a array type int inline" time="0.015">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 6: declare 2 variable in multiple line" time="0.016">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 7: declare variable and array in multiple line" time="0.016">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 8: declare function no paramater no body" time="0.015">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 9: declare function 1 paramater no body" time="0.016">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 10: declare function with 1 paramater no body" time="0.015">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 11: declare function with many paramater no body" time="0.016">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 12: declare function with many paramater no body" time="0.016">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 13: declare function return array pointer type int" time="0.015">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 14: declare function return array pointer type float" time="0.016">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 15: declare variable and function" time="0.016">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 16: declare many variable and function" time="0.024">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 17: return statement no expression" time="0.01">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 18: return statement with expression" time="0.016">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 19: break statement" time="0.015">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 20: continue statement" time="0.016">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 21: simple if statement" time="0.015">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 22: simple if else statement" time="0.016">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 23: assign operator" time="0.031">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 24: math operator" time="0.016">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 25: multiple math operator" time="0.031">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 26: AND OR operator" time="0.031">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 27: equal operator" time="0.031">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 28: compare operator" time="0.032">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 29: unary operator" time="0.047">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 30: multiple unary operator" time="0.031">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 31: multiple assign operator" time="0.031">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 32: nested if else statement inline" time="0.031">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 33: if else statement with block statement" time="0.032">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 34: nested if else statement with block statement" time="0.015">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 35: for statement" time="0.047">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 36: nested for statement" time="0.027">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 37: nested for statement with block statement" time="0.006">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 38: do while statement" time="0.047">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 39: do while with many statement" time="0.016">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 40: do while with block statement" time="0.031">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 41: do while with many block statement" time="0.016">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 42: declare variable in block statement" time="0.04">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 43: declare and intital variable in block statement" time="0.036">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 44: declare and if statement" time="0.012">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 45: factory function" time="0.031">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 46: sum function" time="0.031">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 47: funcall expression" time="0.016">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 48: index operator" time="0.031">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 49: array function" time="0.016">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 50: funcall with index operator" time="0.031">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 51: expression with bracket" time="0.016">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 52: nested funcall statement" time="0.031">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 53: funcall with many paramater" time="0.031">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 54: if statement inner for statement" time="0.016">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 55: if statement inner do while statement" time="0.031">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 56: continue innner for statement" time="0.016">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 57: break inner do while statement" time="0.031">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 58: declare global and local variable" time="0.016">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 59: nested do while statement" time="0.015">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 60: for statement innner do while statement" time="0.016">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 61: many assign and equal operator" time="0.031">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 62: many compare operator" time="0.031">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 63: return a funcall" time="0.016">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 64: return a string" time="0.015">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 65: return a expression" time="0.032">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 66: return a float" time="0.015">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 67: mix-up operator" time="0.031">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 68: program with line comment" time="0.016">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 69: program with block comment" time="0.016">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 70: complex index expression" time="0.031">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 71: do while statement innner for statement" time="0.031">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 72: if else stmt with a function call in condition part" time="0.25">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 73: do while stmt with conditional expression is index expression" time="0.125">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 74: many block statement in block statement" time="0.046">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 75: do while stmt with conditional expression is a function call" time="0.032">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 76: return an or statement" time="0.109">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 77: minus sign before bracket" time="0.141">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 78: minus sign with index expression" time="0.125">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 79: minus sign with subtract operator in expression" time="0.094">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 80: nested index operator" time="0.031">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 81: expression statement with only a operand" time="0.016">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 82: or, and with not of a variable" time="0.015">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 83: add, sub a number with a negative number" time="0.016">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 84: mul, div, mod a number with a negative number" time="0.031">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 85: bracket and none associativity" time="0.016">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 86: two kind of none associativity" time="0.015">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 87: for,do while statement inside block of statement" time="0.032">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 88: ucln function" time="0.015">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 89: program read a file" time="0.031">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 90: complex expression" time="0.016">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 91: none associativity of &gt;= and &gt;" time="0.016">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 92: none associativity of &lt;= and &lt;" time="0.031">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 93: nested block statement" time="0.016">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 94: return an expression" time="0.016">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 95: do while statement" time="0.015">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 96: Hello Word" time="0.037">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 97: fibonacci program" time="0.029">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 98: bouble search function" time="0.017">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 99: compare two string function" time="0.032">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 100: check leap year function" time="0.031">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 101: newline in string" time="0.016">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 102: priority operator" time="0.015">
+                                                 
+                                               </testcase><testcase classname="AstSuite" name="AST 103: 2 declare var and array inline" time="0.031">
+                                                 <failure message="AstSuite.this.checkAst(input, expected, 303) was false" type="org.scalatest.exceptions.TestFailedException">org.scalatest.exceptions.TestFailedException: AstSuite.this.checkAst(input, expected, 303) was false
+	at org.scalatest.Assertions.newAssertionFailedException(Assertions.scala:528)
+	at org.scalatest.Assertions.newAssertionFailedException$(Assertions.scala:527)
+	at org.scalatest.FunSuite.newAssertionFailedException(FunSuite.scala:1560)
+	at org.scalatest.Assertions$AssertionsHelper.macroAssert(Assertions.scala:501)
+	at AstSuite.$anonfun$new$103(AstSuite.scala:1138)
+	at org.scalatest.OutcomeOf.outcomeOf(OutcomeOf.scala:85)
+	at org.scalatest.OutcomeOf.outcomeOf$(OutcomeOf.scala:83)
+	at org.scalatest.OutcomeOf$.outcomeOf(OutcomeOf.scala:104)
+	at org.scalatest.Transformer.apply(Transformer.scala:22)
+	at org.scalatest.Transformer.apply(Transformer.scala:20)
+	at org.scalatest.FunSuiteLike$$anon$1.apply(FunSuiteLike.scala:186)
+	at org.scalatest.TestSuite.withFixture(TestSuite.scala:196)
+	at org.scalatest.TestSuite.withFixture$(TestSuite.scala:195)
+	at org.scalatest.FunSuite.withFixture(FunSuite.scala:1560)
+	at org.scalatest.FunSuiteLike.invokeWithFixture$1(FunSuiteLike.scala:184)
+	at org.scalatest.FunSuiteLike.$anonfun$runTest$1(FunSuiteLike.scala:196)
+	at org.scalatest.SuperEngine.runTestImpl(Engine.scala:289)
+	at org.scalatest.FunSuiteLike.runTest(FunSuiteLike.scala:196)
+	at org.scalatest.FunSuiteLike.runTest$(FunSuiteLike.scala:178)
+	at org.scalatest.FunSuite.runTest(FunSuite.scala:1560)
+	at org.scalatest.FunSuiteLike.$anonfun$runTests$1(FunSuiteLike.scala:229)
+	at org.scalatest.SuperEngine.$anonfun$runTestsInBranch$1(Engine.scala:396)
+	at scala.collection.immutable.List.foreach(List.scala:389)
+	at org.scalatest.SuperEngine.traverseSubNodes$1(Engine.scala:384)
+	at org.scalatest.SuperEngine.runTestsInBranch(Engine.scala:379)
+	at org.scalatest.SuperEngine.runTestsImpl(Engine.scala:461)
+	at org.scalatest.FunSuiteLike.runTests(FunSuiteLike.scala:229)
+	at org.scalatest.FunSuiteLike.runTests$(FunSuiteLike.scala:228)
+	at org.scalatest.FunSuite.runTests(FunSuite.scala:1560)
+	at org.scalatest.Suite.run(Suite.scala:1147)
+	at org.scalatest.Suite.run$(Suite.scala:1129)
+	at org.scalatest.FunSuite.org$scalatest$FunSuiteLike$$super$run(FunSuite.scala:1560)
+	at org.scalatest.FunSuiteLike.$anonfun$run$1(FunSuiteLike.scala:233)
+	at org.scalatest.SuperEngine.runImpl(Engine.scala:521)
+	at org.scalatest.FunSuiteLike.run(FunSuiteLike.scala:233)
+	at org.scalatest.FunSuiteLike.run$(FunSuiteLike.scala:232)
+	at org.scalatest.FunSuite.run(FunSuite.scala:1560)
+	at org.scalatest.tools.Framework.org$scalatest$tools$Framework$$runSuite(Framework.scala:314)
+	at org.scalatest.tools.Framework$ScalaTestTask.execute(Framework.scala:507)
+	at sbt.TestRunner.runTest$1(TestFramework.scala:98)
+	at sbt.TestRunner.run(TestFramework.scala:109)
+	at sbt.TestFramework$$anon$2$$anonfun$$lessinit$greater$1.$anonfun$apply$1(TestFramework.scala:254)
+	at sbt.TestFramework$.sbt$TestFramework$$withContextLoader(TestFramework.scala:225)
+	at sbt.TestFramework$$anon$2$$anonfun$$lessinit$greater$1.apply(TestFramework.scala:254)
+	at sbt.TestFramework$$anon$2$$anonfun$$lessinit$greater$1.apply(TestFramework.scala:254)
+	at sbt.TestFunction.apply(TestFramework.scala:263)
+	at sbt.Tests$.$anonfun$toTask$1(Tests.scala:277)
+	at sbt.std.Transform$$anon$3.$anonfun$apply$2(System.scala:44)
+	at sbt.std.Transform$$anon$4.work(System.scala:64)
+	at sbt.Execute.$anonfun$submit$2(Execute.scala:257)
+	at sbt.internal.util.ErrorHandling$.wideConvert(ErrorHandling.scala:17)
+	at sbt.Execute.work(Execute.scala:266)
+	at sbt.Execute.$anonfun$submit$1(Execute.scala:257)
+	at sbt.ConcurrentRestrictions$$anon$4.$anonfun$submitValid$1(ConcurrentRestrictions.scala:167)
+	at sbt.CompletionService$$anon$2.call(CompletionService.scala:32)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+</failure>
+                                               </testcase>
+                     <system-out><![CDATA[]]></system-out>
+                     <system-err><![CDATA[]]></system-err>
+                   </testsuite>

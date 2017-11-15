@@ -1,0 +1,5 @@
+
+    void func(){
+      if(a>1) if(a>2) a=1; else a=2;    
+    }
+    

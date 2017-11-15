@@ -1,0 +1,3 @@
+[0m[[0m[31merror[0m] [0m[0mC:\Users\rin.RIN\Desktop\ass2\src\main\mc\checker\StaticCheck.scala:327:32: ')' expected but '.' found.[0m
+[0m[[0m[31merror[0m] [0m[0m      case ("=="|"!="|"[<|>]=?".r,IntType|FloatType,IntType|FloatType) => BoolType  [0m
+[0m[[0m[31merror[0m] [0m[0m                               ^[0m

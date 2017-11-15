@@ -1,0 +1,1 @@
+Program(List(VarDecl(Id("a"),StringType),VarDecl(Id("b"),ArrayType(IntLiteral(3),BoolType))))

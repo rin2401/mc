@@ -1,0 +1,18 @@
+
+    int main(){
+      int array[2],i,j;
+      for (i = 0; i < 2; i){
+        for (j = 0; j < 3; j){
+          cout;
+          cin(array[i]);
+        }
+      }
+      for (i = 0; i < 2; i){
+        for (i = 0; j < 3; j){
+          cout((array[i])[j]);
+          if (j == 2) cout(endl);
+        }
+      }
+      system("pause");
+    }
+    

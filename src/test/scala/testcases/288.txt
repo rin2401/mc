@@ -1,0 +1,9 @@
+
+    int ucln(int a, int b){
+      int u;
+      if (a<b) u=a;
+      else u=b;
+      do u=u-1;
+      while((a%u!=0)||(b%u!=0));
+    }
+    

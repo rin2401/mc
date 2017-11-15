@@ -1,0 +1,7 @@
+
+    void getFloat(int a){
+      return;
+    } 
+    int foo(){
+      return 1;
+    }

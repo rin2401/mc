@@ -1,0 +1,6 @@
+
+    int foo(){
+      float a; 
+      int a; 
+      return 1;
+    }

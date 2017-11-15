@@ -1,0 +1,1 @@
+void foo(int a[]){return;}  void main(){float b[3]; foo(b);return;}

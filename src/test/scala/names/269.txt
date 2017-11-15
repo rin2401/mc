@@ -1,0 +1,1 @@
+AST 69: program with block comment

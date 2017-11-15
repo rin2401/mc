@@ -1,0 +1,14 @@
+
+    void foo(int a, float b, string c, boolean d){
+      return;
+    }
+    void foo1(int a[]){
+      int b[2];
+      foo1(a);
+      foo1(b);
+      return;
+    } 
+    void main(){
+      foo(1,1.2,"rin2401",true);
+      return;
+    }

@@ -1,0 +1,210 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<testsuite hostname="rin" name="CheckerSuite" tests="100" errors="0" failures="0" skipped="0" time="3.394">
+                     <properties>
+      <property name="jline.esc.timeout" value="0"/><property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/><property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_144\jre\bin"/><property name="java.vm.version" value="25.144-b01"/><property name="java.vm.vendor" value="Oracle Corporation"/><property name="java.vendor.url" value="http://java.oracle.com/"/><property name="path.separator" value=";"/><property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/><property name="file.encoding.pkg" value="sun.io"/><property name="user.country" value="US"/><property name="user.script" value=""/><property name="sun.java.launcher" value="SUN_STANDARD"/><property name="sun.os.patch.level" value=""/><property name="java.vm.specification.name" value="Java Virtual Machine Specification"/><property name="user.dir" value="D:\HK171\NLNNLT\Assignment\mc"/><property name="java.runtime.version" value="1.8.0_144-b01"/><property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/><property name="java.endorsed.dirs" value="C:\Program Files\Java\jdk1.8.0_144\jre\lib\endorsed"/><property name="os.arch" value="amd64"/><property name="java.io.tmpdir" value="C:\Users\rin.RIN\AppData\Local\Temp\"/><property name="line.separator" value="
+"/><property name="java.vm.specification.vendor" value="Oracle Corporation"/><property name="user.variant" value=""/><property name="os.name" value="Windows 10"/><property name="sun.jnu.encoding" value="Cp1252"/><property name="java.library.path" value="C:\Program Files\Java\jdk1.8.0_144\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files\Java\jdk1.8.0_144\bin;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\sbt\bin;C:\Program Files (x86)\scala\bin;C:\Users\rin.RIN\AppData\Local\Microsoft\WindowsApps;C:\Python27;C:\Users\rin.RIN\AppData\Local\GitHubDesktop\bin;."/><property name="java.specification.name" value="Java Platform API Specification"/><property name="java.class.version" value="52.0"/><property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/><property name="os.version" value="10.0"/><property name="user.home" value="C:\Users\rin.RIN"/><property name="user.timezone" value="Asia/Bangkok"/><property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/><property name="file.encoding" value="Cp1252"/><property name="java.specification.version" value="1.8"/><property name="sbt.log.format" value="true"/><property name="java.class.path" value="C:\Program Files (x86)\sbt\bin\sbt-launch.jar"/><property name="user.name" value="rin"/><property name="jline.shutdownhook" value="false"/><property name="java.vm.specification.version" value="1.8"/><property name="sun.java.command" value="xsbt.boot.Boot"/><property name="java.home" value="C:\Program Files\Java\jdk1.8.0_144\jre"/><property name="sun.arch.data.model" value="64"/><property name="user.language" value="en"/><property name="java.specification.vendor" value="Oracle Corporation"/><property name="awt.toolkit" value="sun.awt.windows.WToolkit"/><property name="java.vm.info" value="mixed mode"/><property name="java.version" value="1.8.0_144"/><property name="java.ext.dirs" value="C:\Program Files\Java\jdk1.8.0_144\jre\lib\ext;C:\WINDOWS\Sun\Java\lib\ext"/><property name="sun.boot.class.path" value="C:\Program Files\Java\jdk1.8.0_144\jre\lib\resources.jar;C:\Program Files\Java\jdk1.8.0_144\jre\lib\rt.jar;C:\Program Files\Java\jdk1.8.0_144\jre\lib\sunrsasign.jar;C:\Program Files\Java\jdk1.8.0_144\jre\lib\jsse.jar;C:\Program Files\Java\jdk1.8.0_144\jre\lib\jce.jar;C:\Program Files\Java\jdk1.8.0_144\jre\lib\charsets.jar;C:\Program Files\Java\jdk1.8.0_144\jre\lib\jfr.jar;C:\Program Files\Java\jdk1.8.0_144\jre\classes"/><property name="java.vendor" value="Oracle Corporation"/><property name="sun.stderr.encoding" value="cp437"/><property name="file.separator" value="\"/><property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/"/><property name="sun.io.unicode.encoding" value="UnicodeLittle"/><property name="sun.cpu.endian" value="little"/><property name="sun.stdout.encoding" value="cp437"/><property name="sun.desktop" value="windows"/><property name="sun.cpu.isalist" value="amd64"/>
+    </properties>
+                     <testcase classname="CheckerSuite" name="Checker 1: Not Redeclared Variable" time="0.324">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 2: Redeclared Variable a" time="0.045">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 3: Redeclared Variable b" time="0.018">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 4: Variable Redeclared Function foo" time="0.102">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 5: Variable Redeclared Function foo1" time="0.019">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 6: Variable getInt Redeclared Build In Function getInt" time="0.054">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 7: Not Redeclared Function" time="0.015">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 8: Redeclared Function foo" time="0.039">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 9: Function Redeclared Variable foo" time="0.019">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 10: Function getFloat Redeclared Build In Function getFloat" time="0.023">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 11: Not Redeclared Paramater" time="0.008">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 12: Redeclared Paramater a" time="0.043">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 13: Redeclared Paramater b" time="0.023">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 14: Not Redeclared Local Variable" time="0.014">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 15: Redeclared Local Variable a" time="0.055">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 16: Local Variable Redeclared Paramater a" time="0.013">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 17: Redeclared Local Variable in Block Of Block" time="0.015">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 18: Parameter a StringType Hide Global Variable a IntType" time="0.066">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 19: Local Variable a BoolType Hide Global Variable a IntType" time="0.016">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 20: Local Variable foo1 IntType Hide Function foo1" time="0.056">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 21: Build In Function" time="0.086">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 22: Declared Variable" time="0.05">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 23: Undeclared Variable a In Id Expresstion" time="0.063">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 24: Undeclared Variable b In BinaryOp Expresstion" time="0.043">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 25: Undeclared Variable a In UnOp Expresstion" time="0.049">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 26: Undeclared Variable a In ArrayCell Expresstion" time="0.065">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 27: Undeclared Paramater a In Function Call Expresstion" time="0.022">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 28: Undeclared Variable a In Return Statement" time="0.047">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 29: Undeclared Variable a In For Statement" time="0.025">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 30: Undeclared Variable a In If Statement" time="0.039">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 31: Undeclared Variable a Do While Statement" time="0.034">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 32: Declared Function foo Before and foo1 After" time="0.013">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 33: Undeclared Function foo" time="0.024">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 34: Type Match In BinaryOp(+ - * /) Expression" time="0.035">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 35: Type Mismatch In BinaryOp(+ - * /) Expression StringLiteral And Any" time="0.02">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 36: Type Match In BinaryOp(+ - * /) Expression BooleanLiteral And Any" time="0.047">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 37: Type Match In BinaryOp(&lt;&gt;&lt;=&gt;=) Expression FloatLiteral And IntLiteral" time="0.046">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 38: Type Match In BinaryOp(&lt;&gt;&lt;=&gt;=) Expression Variable IntType And FloatLiteral" time="0.022">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 39: Type Match In BinaryOp(=) Expression" time="0.066">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 40: Type Mismatch In BinaryOp(=) Expression Variable ArrayType And Variable ArrayType" time="0.036">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 41: Type Mismatch In BinaryOp(=) Expression Variable IntType And FloatLiteral" time="0.024">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 42: Type Mismatch In BinaryOp(=) Expression ArrayCell a[1] IntType And StringType" time="0.054">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 43: Type Match In BinaryOp(%) Expression IntLiteral And IntLiteral" time="0.03">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 44: Type Mismatch In BinaryOp(%) Expression FloatLiteral And IntLiteral" time="0.039">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 45: Type Mismatch In BinaryOp(%) Expression IntLiteral And StringLiteral" time="0.071">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 46: Type Mismatch In BinaryOp(%) Expression IntLiteral And BooleanLiteral" time="0.022">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 47: Type Match In BinaryOp(&amp;&amp;||) Expression BooleanLiteral And BooleanLiteral" time="0.049">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 48: Type Mismatch In BinaryOp(&amp;&amp;||) Expression IntLiteral And BooleanLiteral" time="0.015">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 49: Type Mismatch In BinaryOp(&amp;&amp;||) Expression StringLiteral And BooleanLiteral" time="0.033">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 50: Type Mismatch In BinaryOp(&amp;&amp;||) Expression BooleanLiteral And FloatLiteral" time="0.029">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 51: Type Match UnaryOp" time="0.037">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 52: Type Match In UnaryOp - FloatLiteral" time="0.015">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 53: Type Mismatch In UnaryOp - StringLiteral" time="0.032">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 54: Type Mismatch In UnaryOp - BooleanLiteral" time="0.028">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 55: Type Mismatch In UnaryOp ! FloatLiteral" time="0.025">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 56: Type Mismatch UnaryOp ! StringLiteral" time="0.012">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 57: Type Match ArrayCell" time="0.055">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 58: Type Mismatch ArrayCell a[1] Variable a IntType" time="0.031">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 59: Type Mismatch ArrayCell a[i] Index Variable i FloatType" time="0.021">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 60: Type Mismatch ArrayCell foo()[true] FunCall Index BooleanLiteral" time="0.04">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 61: Type Match In Call Expression With Param IntType Arg IntType" time="0.031">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 62: Type Mismatch In Call Expression With Param IntType Arg None" time="0.037">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 63: Type Mismatch In Call Expression With Param IntType Arg FloatType" time="0.031">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 64: Type Mismatch In Call Expression With Param StringType Arg BooleanType" time="0.031">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 65: Type Mismatch In Call Expression With Param BooleanType Arg IntType" time="0.044">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 66: Type Mismatch In Call Expression With Param ArrayType FloatType - ArrayPoiterType IntType" time="0.029">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 67: Type Mismatch In Call Expression With Param ArrayPoiterType IntType - ArrayPoiterType FloatType" time="0.018">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 68: Type Match In If Statement" time="0.011">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 69: Type Mismatch In If Statement Expresstion" time="0.01">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 70: Type Match In For Statement" time="0.016">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 71: Type Mismatch In For Statement Expresstion 1" time="0.031">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 72: Type Mismatch In For Statement Expresstion 2" time="0.015">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 73: Type Mismatch In For Statement Expresstion 3" time="0.016">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 74: Type Match In Dowhile Statement" time="0.016">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 75: Type Mismatch In Dowhile Statement" time="0.021">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 76: Type Match Return Statement VoidType Exp None" time="0.028">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 77: Type Mismatch Return Statement ArrayPointerType FloatType Exp ArrayPointerType IntType" time="0.032">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 78: Type Mismatch Return Statement VoidType Exp CallExpr VoidType" time="0.027">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 79: Type Mismatch Return Statement IntType Exp None" time="0.021">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 80: Function Not Return" time="0.015">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 81: Function Return In If Then Statement" time="0.009">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 82: Function Return In If Statement" time="0.031">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 83: Function Not Return In If Then Statement" time="0.023">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 84: Function Not Return In If Else Statement" time="0.018">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 85: Function Not Return In If Then Else Statement" time="0.023">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 86: Function Return Statement In For Statement" time="0.031">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 87: Function Not Return Statement In For Statement" time="0.012">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 88: Function Not Return Statement In For Statement Inner If Then Statement" time="0.021">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 89: Break In For Statement" time="0.016">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 90: Break Not In For Statement" time="0.046">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 91: Continie In For Statement" time="0.051">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 92: Continue Not In For Statement" time="0.016">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 93: Unreachable Statement After Return Statement" time="0.017">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 94: Unreachable Statement After Break Statement" time="0.028">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 95: Unreachable Statement After Continue In Dowhile Statement" time="0.013">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 96: Unreachable Statement After Block Contain Continue In Dowhile Statement" time="0.02">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 97: Reachable Statement After If Statement Not Full Break/Continue/Return In For Statement" time="0.016">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 98: Reachable Statement After For Statement Contain Continue And Break" time="0.018">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 99: Unreachable Statement After If Statement Contain Return And Continue" time="0.019">
+                                                 
+                                               </testcase><testcase classname="CheckerSuite" name="Checker 100: Unreachable Statement After Return In If Else Statement" time="0.025">
+                                                 
+                                               </testcase>
+                     <system-out><![CDATA[]]></system-out>
+                     <system-err><![CDATA[]]></system-err>
+                   </testsuite>

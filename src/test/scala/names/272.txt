@@ -1,0 +1,1 @@
+AST 72: if else stmt with a function call in condition part

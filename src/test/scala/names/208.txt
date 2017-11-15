@@ -1,0 +1,1 @@
+AST 8: declare function no paramater no body

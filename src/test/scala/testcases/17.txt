@@ -1,0 +1,4 @@
+ boolean check; 
+                    string _name;
+                    int age1, age2; 
+                    float num;

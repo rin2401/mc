@@ -1,0 +1,12 @@
+
+    void main(){
+      {
+        int a, b;
+        a = b;
+        {
+          int c;
+          c = 0;
+        }
+      }
+    }
+    

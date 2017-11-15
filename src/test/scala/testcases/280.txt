@@ -1,0 +1,5 @@
+
+    int main(){
+      array[array[array[1]]];
+    }
+    

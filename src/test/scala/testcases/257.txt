@@ -1,0 +1,11 @@
+
+    int main(){
+      int i;
+      i=0;
+      do
+        if(i%2==0) print(i);
+        i=i+1;
+        if(i>=10) break;
+      while(true);
+    }
+    

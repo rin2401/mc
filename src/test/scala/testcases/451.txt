@@ -1,0 +1,14 @@
+
+    int a;
+    float b;
+    boolean c;
+    int main(){
+      -241;
+      -3.9;
+      -a;
+      -b;
+      !true;
+      !false;
+      !c;
+      return 1;
+    }

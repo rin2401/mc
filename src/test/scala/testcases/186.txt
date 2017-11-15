@@ -1,0 +1,4 @@
+ int func(){
+                      string a;
+                      a = "string;
+                    }

@@ -1,0 +1,1 @@
+AST 42: declare variable in block statement

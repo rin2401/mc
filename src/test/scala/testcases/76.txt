@@ -1,0 +1,4 @@
+string[] text () {
+                    continue;
+                    a=a*b/c%5;
+                  }

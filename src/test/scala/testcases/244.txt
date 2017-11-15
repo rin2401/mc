@@ -1,0 +1,7 @@
+
+    int main(){
+      int a;
+      a=1;
+      if(a>0) println("a la so nguyen duong");
+    }
+    

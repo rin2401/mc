@@ -1,0 +1,14 @@
+int
+foo
+(
+int
+x
+)
+{
+print
+(
+x
+)
+;
+}
+<EOF>

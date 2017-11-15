@@ -1,0 +1,5 @@
+
+    int main(){
+      sum(fact(10));
+    }
+    

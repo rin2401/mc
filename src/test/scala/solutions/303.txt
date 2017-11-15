@@ -1,0 +1,1 @@
+Program(List(FuncDecl(Id("a"),List(VarDecl(Id("b"),IntType),VarDecl(Id("c"),ArrayPointerType(StringType))),ArrayPointerType(StringType),Block(List(),List()))))

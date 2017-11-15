@@ -1,0 +1,6 @@
+boolean
+check
+=
+true
+;
+<EOF>

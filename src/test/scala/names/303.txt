@@ -1,0 +1,1 @@
+AST 103: 2 declare var and array inline

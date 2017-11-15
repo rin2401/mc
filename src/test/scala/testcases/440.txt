@@ -1,0 +1,6 @@
+
+    int a[3],b[3];
+    int main(){
+      a=b;
+      return 1;
+    }

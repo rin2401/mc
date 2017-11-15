@@ -1,0 +1,1 @@
+void foo(int a){return;}  void main(){foo(1.2);return;}

@@ -1,0 +1,1 @@
+AST 58: declare global and local variable
