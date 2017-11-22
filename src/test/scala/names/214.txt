@@ -1,1 +1,0 @@
-AST 14: declare function return array pointer type float

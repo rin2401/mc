@@ -1,1 +1,0 @@
-AST 10: declare function with 1 paramater no body

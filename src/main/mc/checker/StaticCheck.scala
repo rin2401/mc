@@ -9,12 +9,16 @@ import mc.parser._
 import mc.utils._
 import java.io.{File, PrintWriter}
 
-//import mc.codegen.Val
+import mc.codegen.Val
 import org.antlr.v4.runtime.ANTLRFileStream
 import org.antlr.v4.runtime.CommonTokenStream
 import org.antlr.v4.runtime.tree._
 
 import scala.collection.JavaConverters._
+
+//Symbol
+case class Symbol(name:String,typ:Type,value:Val)
+case class FunctionType(input:List[Type],output:Type) extends Type
 
 class StaticChecker(ast:AST) extends BaseVisitor with Utils {  
   def check() = visit(ast,null)  
@@ -206,7 +210,3 @@ class StaticChecker(ast:AST) extends BaseVisitor with Utils {
     })
   }
 }
-//Symbol
-case class Symbol(name:String,typ:Type,value:Val)
-trait Val
-case class FunctionType(input:List[Type],output:Type) extends Type

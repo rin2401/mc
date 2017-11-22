@@ -1,1 +1,0 @@
-AST 13: declare function return array pointer type int

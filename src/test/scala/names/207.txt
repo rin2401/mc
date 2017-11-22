@@ -1,1 +1,0 @@
-AST 7: declare variable and array in multiple line

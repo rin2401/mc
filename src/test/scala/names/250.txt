@@ -1,1 +1,0 @@
-AST 50: funcall with index operator

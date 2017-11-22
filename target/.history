@@ -348,3 +348,12 @@ testOnly AstSuite
 testOnly CheckerSuite
 testOnly AstSuite
 testOnly CheckerSuite
+testOnly CodeGenSuite
+compilw
+compile
+testOnly CodeGenSuite
+compile
+testOnly CodeGenSUite
+testOnly CodeGenSuite
+compile
+testOnly CodeGenSuite

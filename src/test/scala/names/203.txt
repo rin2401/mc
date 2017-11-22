@@ -1,1 +1,0 @@
-AST 3: declare a array 3 elements type string

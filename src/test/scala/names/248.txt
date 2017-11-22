@@ -1,1 +1,0 @@
-AST 48: index operator

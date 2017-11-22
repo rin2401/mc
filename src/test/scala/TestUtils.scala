@@ -35,13 +35,6 @@ trait TestUtils extends Timed {
 		tmp.close
 		new ANTLRFileStream(s"$testdir$sepa$num.txt")
 	}
-	//mine
-	def makeName(input: String, num: Int) = {
-		val tmp = new PrintWriter(new File(s"$namedir$sepa$num.txt"))
-		tmp.print(input)
-		tmp.close
-	}
-
 }
 
 

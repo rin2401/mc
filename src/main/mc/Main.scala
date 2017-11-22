@@ -11,7 +11,7 @@ import java.net.MalformedURLException
 import java.net.URLClassLoader
 import java.util.concurrent.{Executors, TimeUnit}
 
-//import jasmin.Main
+import jasmin.Main
 
 import org.antlr.v4.runtime.ANTLRFileStream
 import org.antlr.v4.runtime.CommonTokenStream
@@ -21,7 +21,7 @@ import org.antlr.v4.gui.TestRig
 import mc.parser._
 import mc.astgen._
 import mc.checker._
-//import mc.codegen._
+import mc.codegen._
 import mc.utils._
 
 

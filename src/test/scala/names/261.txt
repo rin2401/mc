@@ -1,1 +1,0 @@
-AST 61: many assign and equal operator

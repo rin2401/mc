@@ -1,1 +1,0 @@
-AST 11: declare function with many paramater no body

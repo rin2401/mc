@@ -1,3 +1,15 @@
-[0m[[0m[31merror[0m] [0m[0mC:\Users\rin.RIN\Desktop\ass2\src\main\mc\checker\StaticCheck.scala:327:32: ')' expected but '.' found.[0m
-[0m[[0m[31merror[0m] [0m[0m      case ("=="|"!="|"[<|>]=?".r,IntType|FloatType,IntType|FloatType) => BoolType  [0m
-[0m[[0m[31merror[0m] [0m[0m                               ^[0m
+[0m[[0m[31merror[0m] [0m[0mD:\HK171\NLNNLT\Assignment\mc\src\main\mc\codegen\CodeGenerator.scala:53:24: not found: value isInit[0m
+[0m[[0m[31merror[0m] [0m[0m		val returnType = if (isInit) VoidType else ast.returnType[0m
+[0m[[0m[31merror[0m] [0m[0m		                     ^[0m
+[0m[[0m[31merror[0m] [0m[0mD:\HK171\NLNNLT\Assignment\mc\src\main\mc\codegen\CodeGenerator.scala:54:24: not found: value isInit[0m
+[0m[[0m[31merror[0m] [0m[0m		val methodName = if (isInit) "<init>" else ast.name.name[0m
+[0m[[0m[31merror[0m] [0m[0m		                     ^[0m
+[0m[[0m[31merror[0m] [0m[0mD:\HK171\NLNNLT\Assignment\mc\src\main\mc\codegen\CodeGenerator.scala:58:53: not found: value isInit[0m
+[0m[[0m[31merror[0m] [0m[0m		emit.printout(emit.emitMETHOD(methodName, mtype, !isInit, frame))[0m
+[0m[[0m[31merror[0m] [0m[0m		                                                  ^[0m
+[0m[[0m[31merror[0m] [0m[0mD:\HK171\NLNNLT\Assignment\mc\src\main\mc\codegen\CodeGenerator.scala:65:7: not found: value isInit[0m
+[0m[[0m[31merror[0m] [0m[0m		if (isInit) emit.printout(emit.emitVAR(frame.getNewIndex,"this",ClassType(className),frame.getStartLabel,frame.getEndLabel,frame))[0m
+[0m[[0m[31merror[0m] [0m[0m		    ^[0m
+[0m[[0m[31merror[0m] [0m[0mD:\HK171\NLNNLT\Assignment\mc\src\main\mc\codegen\CodeGenerator.scala:72:7: not found: value isInit[0m
+[0m[[0m[31merror[0m] [0m[0m		if (isInit) {[0m
+[0m[[0m[31merror[0m] [0m[0m		    ^[0m

@@ -1,1 +1,0 @@
-AST 43: declare and intital variable in block statement

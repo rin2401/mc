@@ -1,1 +1,0 @@
-AST 5: declare a variable and a array type int inline

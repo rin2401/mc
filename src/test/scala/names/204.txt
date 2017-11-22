@@ -1,1 +1,0 @@
-AST 4: declare 2 variable type boolean inline

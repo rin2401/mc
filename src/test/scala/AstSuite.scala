@@ -1137,6 +1137,4 @@ class AstSuite extends FunSuite with TestAst {
     val expected = Program(List(FuncDecl(Id("main"),List(),IntType,Block(List(),List(BinaryOp("=",ArrayCell(Id("g"),ArrayCell(Id("f"),IntLiteral(2))),IntLiteral(5)))))))
     assert(checkAst(input,expected,303))
   }
-
-   for(i <- 0 until 103) makeName(this.testNames.toList(i),i+201)
 }

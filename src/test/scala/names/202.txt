@@ -1,1 +1,0 @@
-AST 2: declare a variable type float

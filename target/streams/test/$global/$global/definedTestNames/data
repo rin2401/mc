@@ -1,1 +1,1 @@
-["ParserSuite","AstSuite","LexerSuite","CheckerSuite"]
+["ParserSuite","AstSuite","LexerSuite","CheckerSuite","CodeGenSuite"]
