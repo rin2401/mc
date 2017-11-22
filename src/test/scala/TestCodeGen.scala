@@ -68,7 +68,6 @@ trait TestCodeGen extends TestUtils {
         }
     }
     def checkCode(input:String,expect:String,num:Int): Boolean = {
-        println("checkCode")
         val source = makeSource(input,num)
         test(source,num)
         compare(expect,num)
