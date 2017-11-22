@@ -1,4 +1,8 @@
 *.class
 *.log
 target/
+<<<<<<< HEAD
 result.txt
+=======
+resuilt.txt
+>>>>>>> ffe74063cf791d66f9ff7d81cd94e24e0080dd92
