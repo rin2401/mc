@@ -1,11 +1,14 @@
 .source MCClass.java
 .class public MCClass
 .super java.lang.Object
+.field static a I
 
 .method public static main([Ljava/lang/String;)V
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
 Label0:
-	iconst_5
+	iconst_1
+	putstatic MCClass.a I
+	getstatic MCClass.a I
 	invokestatic io/putIntLn(I)V
 Label1:
 	return

@@ -1,0 +1,30 @@
+
+    int x;
+    float y; 
+    void main(){
+      //foo(10,20);
+      fun();
+    }
+    
+    // void foo(int a, int b){
+    //   putIntLn(b);
+    //   putIntLn(a);
+    // }
+
+    void fun(){
+      int a;
+      a = 2;
+      {
+        int b;
+        b = 3;
+        putIntLn(b);
+      }
+      {
+        string c;
+        c = "hello";
+        putStringLn(c);
+      }
+      putIntLn(a);
+    }
+
+    

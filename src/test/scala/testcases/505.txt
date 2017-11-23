@@ -1,5 +1,5 @@
 
     void main(){
-      putFloatLn(24.01);
+      putIntLn(true);
     }
     

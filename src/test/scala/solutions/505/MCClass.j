@@ -5,8 +5,8 @@
 .method public static main([Ljava/lang/String;)V
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
 Label0:
-	ldc 24.01
-	invokestatic io/putFloatLn(F)V
+	iconst_1
+	invokestatic io/putIntLn(I)V
 Label1:
 	return
 .limit stack 1

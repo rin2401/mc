@@ -7,8 +7,6 @@
 */
 package mc.codegen
 
-
-
 abstract class MachineCode {
   def emitPUSHNULL():String
   def emitICONST(i:Int):String
@@ -102,13 +100,13 @@ class JasminCode extends MachineCode {
   
 	override def emitPUSHNULL() = INDENT + "aconst_null" + END
   
-	override def emitICONST(i:Int) =  	
+	override def emitICONST(i:Int) =
 		if (i == -1) 
-			INDENT + "iconst_m1" + END			
-		 else if (i >= 0 && i <= 5)
-			INDENT + "iconst_" + i + END			
-		 else 
-		throw  IllegalOperandException(i.toString)
+			INDENT + "iconst_m1" + END
+		else if (i >= 0 && i <= 5)
+			INDENT + "iconst_" + i + END
+		else 
+		throw IllegalOperandException(i.toString)
 	
 	
 	override def emitBIPUSH(i:Int) =  
@@ -200,103 +198,84 @@ class JasminCode extends MachineCode {
 	override def emitGETSTATIC(lexeme:String, typ:String) = INDENT + "getstatic " + lexeme + " " + typ + END
 	
 	override def emitPUTSTATIC(lexeme:String, typ:String) = INDENT + "putstatic " + lexeme + " " + typ + END
-  
-  override def emitGETFIELD(lexeme:String, typ:String) = INDENT + "getfield " + lexeme + " " + typ + END
-  
-  override def emitPUTFIELD(lexeme:String, typ:String) = INDENT + "putfield " + lexeme + " " + typ + END
+
+	override def emitGETFIELD(lexeme:String, typ:String) = INDENT + "getfield " + lexeme + " " + typ + END
+
+	override def emitPUTFIELD(lexeme:String, typ:String) = INDENT + "putfield " + lexeme + " " + typ + END
 	
 	override def emitIADD()  = INDENT + "iadd" + END
-  
+
 	override def emitFADD() = INDENT + "fadd" + END
 	
-  override def emitISUB() = INDENT + "isub" + END
+	override def emitISUB() = INDENT + "isub" + END
 	
-	override def emitFSUB() =  INDENT + "fsub" + END
+	override def emitFSUB() = INDENT + "fsub" + END
 	
-	override def emitIMUL() =  INDENT + "imul" + END
+	override def emitIMUL() = INDENT + "imul" + END
 	
-	override def emitFMUL() =  INDENT + "fmul" + END
+	override def emitFMUL() = INDENT + "fmul" + END
 	
-	override def emitIDIV()  = INDENT + "idiv" + END
+	override def emitIDIV() = INDENT + "idiv" + END
 	
 	override def emitFDIV() = INDENT + "fdiv" + END
 	
-	override def emitIAND() =  INDENT + "iand" + END
+	override def emitIAND() = INDENT + "iand" + END
 	
 	override def emitIOR() = INDENT + "ior" + END
 	
 	override def emitIREM() = INDENT + "irem" + END
   
-  override def emitIFACMPEQ(label:Int) = INDENT + "if_acmpeq Label" + label + END
-  
-  override def emitIFACMPNE(label:Int)  = INDENT + "if_acmpne Label" + label + END
+	override def emitIFACMPEQ(label:Int) = INDENT + "if_acmpeq Label" + label + END
+
+	override def emitIFACMPNE(label:Int)  = INDENT + "if_acmpne Label" + label + END
 	
 	override def emitIFICMPEQ(label:Int) = INDENT + "if_icmpeq Label" + label + END
 	
 	override def emitIFICMPNE(label:Int)  = INDENT + "if_icmpne Label" + label + END
 	
-	
 	override def emitIFICMPLT(label:Int)  = INDENT + "if_icmplt Label" + label + END
-	
 	
 	override def emitIFICMPLE(label:Int)  = INDENT + "if_icmple Label" + label + END
 	
-	
 	override def emitIFICMPGT(label:Int)  = INDENT + "if_icmpgt Label" + label + END
-	
 	
 	override def emitIFICMPGE(label:Int)  =  INDENT + "if_icmpge Label" + label + END
 	
-	
 	override def emitIFEQ(label:Int)  = INDENT + "ifeq Label" + label + END
-	
 	
 	override def emitIFNE(label:Int)  = INDENT + "ifne Label" + label + END
 	
-	
 	override def emitIFLT(label:Int)  = INDENT + "iflt Label" + label + END
-	
 	
 	override def emitIFLE(label:Int)  = INDENT + "ifle Label" + label + END
 	
-	
 	override def emitIFGT(label:Int)  = INDENT + "ifgt Label" + label + END
-	
 	
 	override def emitIFGE(label:Int)  = INDENT + "ifge Label" + label + END
 	
-	
 	override def emitLABEL(label:Int) = "Label" + label + ":" + END
-	
 	
 	override def emitGOTO(label:Int)  = INDENT + "goto Label" + label + END
 	
-	
 	override def emitINEG()= INDENT + "ineg" + END
-	
 	
 	override def emitFNEG()= INDENT + "fneg" + END
 	
-	
 	override def emitDUP() = INDENT + "dup" + END
 	
-
 	override def emitDUPX2() = INDENT + "dup_x2" + END
-	
 	
 	override def emitPOP() = INDENT + "pop" + END
 	
-	
 	override def emitI2F() = INDENT + "i2f" + END
 	
-  override def emitNEW(lexeme:String) = INDENT + "new " + lexeme + END
+	override def emitNEW(lexeme:String) = INDENT + "new " + lexeme + END
 	
 	override def emitNEWARRAY(lexeme:String) = INDENT + "newarray " + lexeme + END
 	
-  override def emitANEWARRAY(lexeme:String) = INDENT + "anewarray " + lexeme + END
+	override def emitANEWARRAY(lexeme:String) = INDENT + "anewarray " + lexeme + END
 	
 	override def emitMULTIANEWARRAY ( typ:String,  dimensions:Int) = INDENT + "multianewarray " + typ + " " + dimensions + END
-	
 	
 	override def emitINVOKESTATIC(lexeme:String, typ:String) = INDENT + "invokestatic " + lexeme + typ + END
 	
@@ -304,61 +283,48 @@ class JasminCode extends MachineCode {
   
 	override def emitINVOKESPECIAL(lexeme:String, typ:String) = INDENT + "invokespecial " + lexeme + typ + END
 	
-	
 	override def emitINVOKEVIRTUAL(lexeme:String, typ:String) =	 INDENT + "invokevirtual " + lexeme + typ + END
 	
+	override def emitI() =	INDENT + "i" + END
 	
-	override def emitI()  =	INDENT + "i" + END
-	
-	
-	override def emitF()  =		 INDENT + "f" + END
+	override def emitF()  = INDENT + "f" + END
 	
 	override def emit()  = INDENT + "" + END
 	
-	
 	override def emitLIMITSTACK(in:Int) =	 ".limit stack " + in + END
-	
 	
 	override def emitFCMPL()  =		 INDENT + "fcmpl" + END
 	
-	
 	override def emitLIMITLOCAL(in:Int) = ".limit locals " + in + END
-	
 	
 	override def emitVAR(in:Int,varName:String,inType:String,fromLabel:Int,toLabel:Int) = ".var " + in + " is " + varName + " " + inType + " from Label" + fromLabel + " to Label" + toLabel + END
 	
-	
 	override def emitMETHOD(lexeme:String,typ:String,isStatic:Boolean) = 
 		if (isStatic)
-			 END + ".method public static " + lexeme + typ + END
+			END + ".method public static " + lexeme + typ + END
 		else
-			 END + ".method public " + lexeme + typ + END
+			END + ".method public " + lexeme + typ + END
 	
+	override def emitENDMETHOD() = ".end method" + END
 	
-	override def emitENDMETHOD() =	 ".end method" + END
-	
-
 	override def emitSOURCE(lexeme:String) = ".source " + lexeme + END
-	
 	
 	override def emitCLASS(lexeme:String) = ".class " + lexeme + END
 	
-	
 	override def emitSUPER(lexeme:String) = ".super " + lexeme + END
-	
 	
 	override def emitSTATICFIELD(lexeme:String,typ:String,isFinal:Boolean) =
 		if (isFinal) (".field static final " + lexeme + " " + typ + END)
 		else ".field static " + lexeme + " " + typ + END
-			 			
-	
-	
+			 				
 	override def emitINSTANCEFIELD(lexeme:String, typ:String) =	 ".field " + lexeme + " " + typ + END
   
-  override def emitRETURN():String = INDENT + "return" + END
-  override def emitIRETURN() = INDENT + "ireturn" + END
-  override def emitFRETURN() = INDENT + "freturn" + END
-  override def emitARETURN() = INDENT + "areturn" + END
-  
+	override def emitRETURN():String = INDENT + "return" + END
 	
+	override def emitIRETURN() = INDENT + "ireturn" + END
+	
+	override def emitFRETURN() = INDENT + "freturn" + END
+	
+	override def emitARETURN() = INDENT + "areturn" + END
+  
 }

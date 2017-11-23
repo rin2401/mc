@@ -21,6 +21,8 @@ class Emitter(filename:String) {
 	val jvm = new JasminCode()
 	def getJVFunctionType(inType:Type):String = inType match {
 		case IntType => "I"
+		case FloatType => "F" 
+		case BoolType => "Z"
 		case StringType => "Ljava/lang/String;"
 		case VoidType => "V"
 		case ArrayPointerType(t) => "["+getJVFunctionType(t)
@@ -29,6 +31,8 @@ class Emitter(filename:String) {
 	}
 	def getFullType(inType:Type):String = inType match {
 		case IntType => "int"
+		case FloatType => "float"
+		case BoolType => "boolean"
 		case StringType => "java/lang/String"
 		case VoidType => "void"
 	}
@@ -49,7 +53,6 @@ class Emitter(filename:String) {
 			case _ => emitPUSHICONST(in.toInt,frame)
 		}
 
-
 	def emitPUSHFCONST(in:String,frame:Frame):String = 
 	{
 		val f = in.toFloat;	
@@ -68,11 +71,9 @@ class Emitter(filename:String) {
 	*/
 	def emitPUSHCONST(in:String, typ:Type, frame:Frame) = 
 		typ match {
-			case	(IntType) => emitPUSHICONST(in,frame)
-			case StringType => {
-				frame.push();
-				jvm.emitLDC(in);
-			}
+			case IntType|BoolType => emitPUSHICONST(in,frame)
+			case FloatType => emitPUSHFCONST(in,frame)
+			case StringType => frame.push(); jvm.emitLDC("\""+in+"\"")
 			case _ => throw IllegalOperandException(in)
 		}
 
@@ -84,7 +85,6 @@ class Emitter(filename:String) {
 		frame.pop();
 		in match {
 			case IntType => jvm.emitIALOAD()
-
 			case (ArrayPointerType(_)|ClassType(_)|StringType) => jvm.emitAALOAD()
 			case _ => throw IllegalOperandException(in.toString);
 		}
@@ -119,10 +119,11 @@ class Emitter(filename:String) {
 	*/
 	def emitREADVAR(name:String,inType:Type,index:Int,frame:Frame) = 
 	{
-	//... -> ..., value
+		//... -> ..., value
 		frame.push();
 		inType match {
-			case (IntType) => jvm.emitILOAD(index)
+			case (IntType|BoolType) => jvm.emitILOAD(index)
+			case FloatType => jvm.emitFLOAD(index)
 			case (ArrayPointerType(_)|ClassType(_)|StringType) => jvm.emitALOAD(index)
 			case _ => throw IllegalOperandException(name)
 		}
@@ -132,8 +133,7 @@ class Emitter(filename:String) {
 	 */
 	def emitREADVAR2(name:String,typ:Type,frame:Frame) = 
 	{
-	//... -> ..., value
-	
+		//... -> ..., value
 		//frame.push();
 		typ match {
 			case _ => throw IllegalOperandException(name)
@@ -148,15 +148,11 @@ class Emitter(filename:String) {
 	{
 		//..., value -> ...
 		frame.pop();		
-		
 		inType match {
 			case (IntType ) => jvm.emitISTORE(index)
-
-			case (ArrayPointerType(_)|ClassType(_)|StringType) => jvm.emitASTORE(index)
-			
+			case (ArrayPointerType(_)|ClassType(_)|StringType) => jvm.emitASTORE(index)	
 			case _ => throw IllegalOperandException(name)
 		}
-				 
 	}	
 	
 	/** generate the second instruction for array cell access
@@ -170,39 +166,32 @@ class Emitter(filename:String) {
 			case _ => throw IllegalOperandException(name)
 		}	
 	} 
-	/** 	generate the field (static) directive for a class mutable or immutable attribute.
+	/** generate the field (static) directive for a class mutable or immutable attribute.
 	*	@param lexeme the name of the attribute.
 	*	@param in the type of the attribute.
 	*	@param isFinal true in case of constant; false otherwise
 	*/
 	def emitATTRIBUTE(lexeme:String, in:Type, isFinal:Boolean, value:String) = 
 		jvm.emitSTATICFIELD(lexeme,getJVFunctionType(in),false)
-		
-		/*
-		(kind,isFinal) match {
-		case (Static,true) => ".field static final " + lexeme + " " + getJVFunctionType(in) + (if (value == "null") "" else	" = " + value + "\n")
-		case (Static,false) => ".field static " + lexeme + " " + getJVFunctionType(in) + "\n";
-		case (Instance,true) =>".field final " + lexeme + " " + getJVFunctionType(in) + " = " + value + "\n";
-		case _ => ".field " + lexeme + " " + getJVFunctionType(in) + "\n";
-	}*/
-		def emitGETSTATIC(lexeme:String, in:Type,frame:Frame) = {
-			frame.push()
-			jvm.emitGETSTATIC(lexeme, getJVFunctionType(in))
-		}
-				
-		def emitPUTSTATIC(lexeme:String, in: Type,frame:Frame) = {
-			frame.pop()
-			jvm.emitPUTSTATIC(lexeme, getJVFunctionType(in))
-		}
 
-		def emitGETFIELD(lexeme:String, in:Type,frame:Frame) = jvm.emitGETFIELD(lexeme, getJVFunctionType(in))
-		
-				
-		def emitPUTFIELD(lexeme:String, in: Type,frame:Frame) = {
-			frame.pop()
-			frame.pop()
-			jvm.emitPUTFIELD(lexeme, getJVFunctionType(in))
-		}
+	def emitGETSTATIC(lexeme:String, in:Type,frame:Frame) = {
+		frame.push()
+		jvm.emitGETSTATIC(lexeme, getJVFunctionType(in))
+	}
+			
+	def emitPUTSTATIC(lexeme:String, in: Type,frame:Frame) = {
+		frame.pop()
+		jvm.emitPUTSTATIC(lexeme, getJVFunctionType(in))
+	}
+
+	def emitGETFIELD(lexeme:String, in:Type,frame:Frame) = jvm.emitGETFIELD(lexeme, getJVFunctionType(in))
+	
+			
+	def emitPUTFIELD(lexeme:String, in: Type,frame:Frame) = {
+		frame.pop()
+		frame.pop()
+		jvm.emitPUTFIELD(lexeme, getJVFunctionType(in))
+	}
 	/**	generate code to invoke a static method
 	*	@param lexeme the qualified name of the method(i.e., class-name/method-name)
 	*	@param in the type descriptor of the method.
@@ -373,6 +362,7 @@ class Emitter(filename:String) {
 		result.append(emitLABEL(labelO,frame));
 		result.toString();
 	}
+	
 	def emitRELOP(op:String,	in:Type,trueLabel:Int,falseLabel:Int,frame:Frame) =
 	{
 		//..., value1, value2 -> ..., result
