@@ -24,8 +24,7 @@ import mc.utils._
   
 	def getCurrIndex() = currIndex
 		
-  def setCurrIndex(index:Int) =	currIndex = index
-	
+	def setCurrIndex(index:Int) = currIndex = index
 	
 	/**
 	*   return a new label in the method.
@@ -35,7 +34,7 @@ import mc.utils._
 	{
 		val tmp = currentLabel;
 		currentLabel = currentLabel + 1;
-	  tmp;
+		tmp;
 	}
 	/**
 	*	simulate an instruction that pushes a value onto operand stack.

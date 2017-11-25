@@ -1,5 +1,6 @@
 
     void main(){
-      putFloatLn(24.01);
+      boolean a;
+      putBoolLn(!(0.1<2));
     }
     

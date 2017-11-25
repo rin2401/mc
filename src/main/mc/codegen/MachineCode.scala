@@ -287,13 +287,13 @@ class JasminCode extends MachineCode {
 	
 	override def emitI() =	INDENT + "i" + END
 	
-	override def emitF()  = INDENT + "f" + END
+	override def emitF() = INDENT + "f" + END
 	
-	override def emit()  = INDENT + "" + END
+	override def emit() = INDENT + "" + END
 	
-	override def emitLIMITSTACK(in:Int) =	 ".limit stack " + in + END
+	override def emitLIMITSTACK(in:Int) = ".limit stack " + in + END
 	
-	override def emitFCMPL()  =		 INDENT + "fcmpl" + END
+	override def emitFCMPL() = INDENT + "fcmpl" + END
 	
 	override def emitLIMITLOCAL(in:Int) = ".limit locals " + in + END
 	

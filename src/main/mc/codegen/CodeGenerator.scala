@@ -39,6 +39,8 @@ case class ClassType(cname:String) extends Type
 
 case class SubBody(frame:Frame,sym:List[Symbol]) 
 
+case class Flag(frame:Frame,val sym:List[Symbol],flag:Int)
+
 class Access(val frame:Frame,val sym:List[Symbol],val isLeft:Boolean,val isFirst:Boolean)
 
 trait Val
@@ -79,7 +81,7 @@ class CodeGenVisitor(astTree:AST,env:List[Symbol],dir:File) extends BaseVisitor 
 			glenv
 		}
 		else //other
-			ast.param.foldLeft(glenv)((lst,x) => visit(x,frame).asInstanceOf[Symbol]::lst)	
+			ast.param.foldLeft(glenv)((lst,x) => visit(x,Flag(frame,null,1)).asInstanceOf[Symbol]::lst)	
 
 		//visit body
 		if (isInit) {
@@ -89,7 +91,7 @@ class CodeGenVisitor(astTree:AST,env:List[Symbol],dir:File) extends BaseVisitor 
 			emit.printout(emit.emitLABEL(frame.getEndLabel(),frame))
 		}
 		else 
-			visit(ast.body,new Access(frame,sympa,false,true))
+			visit(ast.body,new Flag(frame,sympa,0))
 		if (output == VoidType) emit.printout(emit.emitRETURN(VoidType,frame))
 		emit.printout(emit.emitENDMETHOD(frame))
 		frame.exitScope();
@@ -100,7 +102,7 @@ class CodeGenVisitor(astTree:AST,env:List[Symbol],dir:File) extends BaseVisitor 
 		//add global declarations to env symbol list
 		val sym = ast.decl.foldLeft(env)((lst,x) => {
 			val s = x match {
-				case VarDecl(_,_) => visit(x,null).asInstanceOf[Symbol]
+				case VarDecl(_,_) => visit(x,Flag(null,null,0)).asInstanceOf[Symbol]
 				case FuncDecl(n,p,rt,_) => Symbol(n.name,FunctionType(p.map(_.varType),rt),CName(className))
 			}
 			s::lst
@@ -119,40 +121,50 @@ class CodeGenVisitor(astTree:AST,env:List[Symbol],dir:File) extends BaseVisitor 
 	}
 
 	override def visitVarDecl(ast:VarDecl,o:Any) = {
-		val frame = o.asInstanceOf[Frame]
+		val sub = o.asInstanceOf[Flag]
+		val frame = sub.frame
 		val mtype = ast.varType
-		if(frame == null) {//field
-			val name = ast.variable.name
-			emit.printout(emit.emitATTRIBUTE(name,mtype,false,null))
-			Symbol(name,mtype,CName(className))
-		}
-		else {		
-			val index = frame.getNewIndex
-			val name = "arg" + index
-			emit.printout(emit.emitVAR(index,name,mtype,frame.getStartLabel,frame.getEndLabel,frame))
-			Symbol(ast.variable.name,mtype,Index(index))
+		sub.flag match {
+			case 0 => {//field
+				val name = ast.variable.name
+				emit.printout(emit.emitATTRIBUTE(name,mtype,false,null))
+				Symbol(name,mtype,CName(className))
+			}
+			case 1 => {//param
+				val index = frame.getNewIndex
+				val name = "arg" + index
+				emit.printout(emit.emitVAR(index,name,mtype,frame.getStartLabel,frame.getEndLabel,frame))
+				Symbol(ast.variable.name,mtype,Index(index))
+			}
+			case 2 => {//local
+				val index = frame.getNewIndex
+				val name = ast.variable.name
+				emit.printout(emit.emitVAR(index,name,mtype,frame.getStartLabel,frame.getEndLabel,frame))
+				Symbol(name,mtype,Index(index))
+			}
+			case _ => null  
 		}
 	}
 		
 //Statement
 	override def visitBlock(ast:Block,o:Any) = {
-		val isFirst = o.isInstanceOf[Access] 
-		val (frame,env) = if(isFirst){
-			val sub = o.asInstanceOf[Access] 
-			(sub.frame,sub.sym)
-		}
-		else {
-			val sub = o.asInstanceOf[SubBody]
-			(sub.frame,sub.sym)
-		}
-		if(!isFirst) frame.enterScope(true)
+		val sub = o.asInstanceOf[Flag]
+		val frame = sub.frame
+		val env = sub.sym
+		val isFirst = sub.flag == 0
+		if(!isFirst) frame.enterScope(false)
 		//Generate code for local variable declarations
-		val sym = ast.decl.asInstanceOf[List[VarDecl]].foldLeft(env)((lst,x) => visit(x,frame).asInstanceOf[Symbol]::lst)			
+		val sym = ast.decl.asInstanceOf[List[VarDecl]].foldLeft(env)((lst,x) => visit(x,Flag(frame,null,2)).asInstanceOf[Symbol]::lst)			
 		emit.printout(emit.emitLABEL(frame.getStartLabel(),frame))
 		//Generate code for statement
-		ast.stmt.map(x => x match {
-			case _ => visit(x,SubBody(frame,sym)))
-		}
+		ast.stmt.map(x => {
+			if(x.isInstanceOf[Expr])
+				visit(x,new Access(frame,sym,false,true))
+			else if (x.isInstanceOf[Block])
+				visit(x,Flag(frame,sym,1))
+			else	
+				visit(x,SubBody(frame,sym))
+		})
 		emit.printout(emit.emitLABEL(frame.getEndLabel(),frame))
 		if(!isFirst) frame.exitScope()
 	}
@@ -183,34 +195,89 @@ class CodeGenVisitor(astTree:AST,env:List[Symbol],dir:File) extends BaseVisitor 
 
 //Expression
 	override def visitBinaryOp(ast:BinaryOp,o:Any) = {
-		val sub = o.asInstanceOf[SubBody]
+		val sub = o.asInstanceOf[Access]
 		val frame = sub.frame
-		val nenv = sub.sym
+		val env = sub.sym
+		val isFirst = sub.isFirst
+		val isLeft = sub.isLeft
+		val buffer = new StringBuffer()
 		ast.op match {
 			case "=" => {
-				val r = visit(ast.right,new Access(frame,nenv,false,true)).asInstanceOf[(String,Type)]
-				emit.printout(r._1)
-				val l = visit(ast.left,new Access(frame,nenv,true,true)).asInstanceOf[(String,Type)]
-				emit.printout(l._1)
+				val r = visit(ast.right,new Access(frame,env,false,false)).asInstanceOf[(String,Type)]
+				buffer.append(r._1)
+				if(!isFirst) buffer.append(emit.emitDUP(frame))
+				val l = visit(ast.left,new Access(frame,env,true,false)).asInstanceOf[(String,Type)]		
+				buffer.append(l._1) 
+				if(isFirst) emit.printout(buffer.toString) else (buffer.toString,l._2)
 			}
-			case _ => null  
+			case "%" => {
+				val l = visit(ast.left,new Access(frame,env,false,false)).asInstanceOf[(String,Type)]
+				val r = visit(ast.right,new Access(frame,env,false,false)).asInstanceOf[(String,Type)]
+				buffer.append(l._1)
+				buffer.append(r._1)
+				buffer.append(emit.emitDIV(frame))
+				if(isFirst) emit.printout(buffer.toString) else (buffer.toString,l._2)
+			} 
+			case "&&" => {
+				val l = visit(ast.left,new Access(frame,env,false,false)).asInstanceOf[(String,Type)]
+				val r = visit(ast.right,new Access(frame,env,false,false)).asInstanceOf[(String,Type)]
+				buffer.append(l._1)
+				buffer.append(r._1)
+				buffer.append(emit.emitANDOP(frame))
+				if(isFirst) emit.printout(buffer.toString) else (buffer.toString,l._2)
+			} 
+			case "||" => {
+				val l = visit(ast.left,new Access(frame,env,false,false)).asInstanceOf[(String,Type)]
+				val r = visit(ast.right,new Access(frame,env,false,false)).asInstanceOf[(String,Type)]
+				buffer.append(l._1)
+				buffer.append(r._1)
+				buffer.append(emit.emitOROP(frame))
+				if(isFirst) emit.printout(buffer.toString) else (buffer.toString,l._2)
+			} 
+			case _ => {
+				val l = visit(ast.left,new Access(frame,env,false,false)).asInstanceOf[(String,Type)]
+				val r = visit(ast.right,new Access(frame,env,false,false)).asInstanceOf[(String,Type)]
+				val otype = if(l._2==FloatType||r._2==FloatType) FloatType else IntType
+				buffer.append(l._1)
+				if(l._2 != otype) buffer.append(emit.emitI2F(frame)) 
+				buffer.append(r._1)
+				if(r._2 != otype) buffer.append(emit.emitI2F(frame)) 
+				val rtype = ast.op match {
+					case ("+"|"-") => buffer.append(emit.emitADDOP(ast.op,otype,frame)); otype
+					case ("*"|"/") => buffer.append(emit.emitMULOP(ast.op,otype,frame)); otype
+					case _ => buffer.append(emit.emitREOP(ast.op,otype,frame)); BoolType
+				}
+				if(isFirst) emit.printout(buffer.toString) else (buffer.toString,rtype)
+			}			  
 		}
 	}
 
 	override def visitUnaryOp(ast:UnaryOp,o:Any) = {
-
+		val sub = o.asInstanceOf[Access]
+		val frame = sub.frame
+		val env = sub.sym
+		val isFirst = sub.isFirst
+		// val isLeft = sub.isLeft
+		val buffer = new StringBuffer()
+		val b = visit(ast.body,new Access(frame,env,false,false)).asInstanceOf[(String,Type)]
+		buffer.append(b._1)
+		ast.op match {
+			case "-" => buffer.append(emit.emitNEGOP(b._2,frame)) 
+			case "!" => buffer.append(emit.emitNOT(b._2,frame))
+		}
+		if(isFirst) emit.printout(buffer.toString) else (buffer.toString,b._2) 
 	}
 
 	override def visitCallExpr(ast:CallExpr,o:Any) = {
-		val sub = o.asInstanceOf[SubBody]
+		val sub = o.asInstanceOf[Access]
 		val frame = sub.frame
-		val nenv = sub.sym
-		val sym = lookup(ast.method.name,nenv,(x:Symbol)=>x.name).get
+		val env = sub.sym
+		val sym = lookup(ast.method.name,env,(x:Symbol)=>x.name).get
 		val cname = sym.value.asInstanceOf[CName].value
 		val ctype = sym.typ
 
 		val in = ast.params.foldLeft(("",List[Type]()))((y,x) => {
-			val (str1,typ1) = visit(x,new Access(frame,nenv,false,true)).asInstanceOf[(String,Type)]
+			val (str1,typ1) = visit(x,new Access(frame,env,false,false)).asInstanceOf[(String,Type)]
 			(y._1 + str1,y._2 :+ typ1)
 		})
 		//println(in._1)
@@ -268,6 +335,7 @@ class CodeGenVisitor(astTree:AST,env:List[Symbol],dir:File) extends BaseVisitor 
 	override def visitBooleanLiteral(ast:BooleanLiteral,o:Any) = {
 		val sub = o.asInstanceOf[Access]
 		val frame = sub.frame
+		
 		(emit.emitPUSHCONST(ast.value.toString,BoolType,frame),BoolType)
 	}
 

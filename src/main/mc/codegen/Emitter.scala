@@ -270,7 +270,7 @@ class Emitter(filename:String) {
 	*	@param lexeme the lexeme of the operator.
 	*	@param in the type of the operands.
 	*/	
-	def emitADDOP(lexeme:String, in:Type,frame:Frame) = 
+	def emitADDOP(lexeme:String,in:Type,frame:Frame) = 
 	{
 	//..., value1, value2 -> ..., result
 		frame.pop();
@@ -346,14 +346,16 @@ class Emitter(filename:String) {
 		//println(in)
 		frame.pop();
 		frame.pop();
-		op match {
-			case ">" =>	result.append(jvm.emitIFICMPLE(labelF));
-			case ">=" => result.append(jvm.emitIFICMPLT(labelF));
-			case "<" =>	result.append(jvm.emitIFICMPGE(labelF));
-			case "<=" => result.append(jvm.emitIFICMPGT(labelF));
-			case "!=" => result.append(jvm.emitIFICMPEQ(labelF))
-			case "==" => result.append(jvm.emitIFICMPNE(labelF))
+		val emitif = op match {
+			case ">"  => if(in == IntType) jvm.emitIFICMPLE(labelF) else jvm.emitIFLE(labelF)
+			case ">=" => if(in == IntType) jvm.emitIFICMPLT(labelF) else jvm.emitIFLT(labelF)
+			case "<"  => if(in == IntType) jvm.emitIFICMPGE(labelF) else jvm.emitIFGE(labelF)
+			case "<=" => if(in == IntType) jvm.emitIFICMPGT(labelF) else jvm.emitIFGT(labelF)
+			case "!=" => if(in == IntType) jvm.emitIFICMPEQ(labelF) else jvm.emitIFEQ(labelF)
+			case "==" => if(in == IntType) jvm.emitIFICMPNE(labelF) else jvm.emitIFNE(labelF)
 		}
+		if(in == FloatType) result.append(jvm.emitFCMPL())
+		result.append(emitif)
 		result.append(emitPUSHCONST("1", IntType,frame));
 		frame.pop()
 		result.append(emitGOTO(labelO,frame));
@@ -363,7 +365,7 @@ class Emitter(filename:String) {
 		result.toString();
 	}
 	
-	def emitRELOP(op:String,	in:Type,trueLabel:Int,falseLabel:Int,frame:Frame) =
+	def emitRELOP(op:String,n:Type,trueLabel:Int,falseLabel:Int,frame:Frame) =
 	{
 		//..., value1, value2 -> ..., result
 		val result = new StringBuffer();
@@ -376,15 +378,15 @@ class Emitter(filename:String) {
 				result.append(jvm.emitGOTO(trueLabel))
 			}
 			case ">=" => result.append(jvm.emitIFICMPLT(falseLabel))
-			case "<" =>	result.append(jvm.emitIFICMPGE(falseLabel))
+			case "<"  => result.append(jvm.emitIFICMPGE(falseLabel))
 			case "<=" => result.append(jvm.emitIFICMPGT(falseLabel))
-			case "!=" =>	result.append(jvm.emitIFICMPEQ(falseLabel))
-			case "==" =>	result.append(jvm.emitIFICMPNE(falseLabel))																					 
+			case "!=" => result.append(jvm.emitIFICMPEQ(falseLabel))
+			case "==" => result.append(jvm.emitIFICMPNE(falseLabel))																					 
 		}
 		result.append(jvm.emitGOTO(trueLabel))
 		result.toString();
 	}
-	/** 	generate the method directive for a function.
+	/** generate the method directive for a function.
 	*	@param lexeme the qualified name of the method(i.e., class-name/method-name).
 	*	@param in the type descriptor of the method.
 	*	@param isStatic <code>true</code> if the method is static; <code>false</code> otherwise.
@@ -400,7 +402,7 @@ class Emitter(filename:String) {
 		buffer.toString();
 	}
 
-	def getConst(ast:Literal)= ast match {
+	def getConst(ast:Literal) = ast match {
 		case IntLiteral(i) => (i.toString,IntType)
 	}
 	/** 	generate code to initialize a local array variable.<p>
@@ -478,8 +480,8 @@ class Emitter(filename:String) {
 		frame.pop();
 		jvm.emitIFICMPLT(label);
 	}
-				
-	/** 	generate code to duplicate the value on the top of the operand stack.<p>
+	
+	/** generate code to duplicate the value on the top of the operand stack.<p>
 	*	Stack:<p>
 	*	Before: ...,value1<p>
 	*	After:	...,value1,value1<p>
@@ -529,7 +531,7 @@ class Emitter(filename:String) {
 	 *	@param label the label
 	 *	@return code goto Label<label>
 	 */
-	def emitGOTO(label:Int,frame:Frame) =	jvm.emitGOTO(label)
+	def emitGOTO(label:Int,frame:Frame) = jvm.emitGOTO(label)
 	
 	/**	generate some starting directives for a class.<p>
 	*	.source MPC.CLASSNAME.java<p>
