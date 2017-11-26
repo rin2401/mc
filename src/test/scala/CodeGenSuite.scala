@@ -39,17 +39,6 @@ class CodeGenSuite extends FunSuite with TestCodeGen {
   //   assert(checkCode(input,expected,503))
   // }
 
-  test("Gen 1: declare global array") {
-    val input = """
-    int a[3];
-    void main(){
-      a[0] = 1; 
-      putIntLn(a[0]);
-    }
-    """
-    val expected = "1"
-    assert(checkCode(input,expected,502))
-  }
 
   // test("Gen 1: declare local array") {
   //   val input = """
@@ -94,6 +83,55 @@ class CodeGenSuite extends FunSuite with TestCodeGen {
 
 
 //Statement
+
+//If statement
+  
+  // test("Gen 2: if true print 1 else print hello") {
+  //   val input = """
+  //   void main(){
+  //     if(true) putStringLn("hello");
+  //   }
+  //   """
+  //   val expected = "hello"
+  //   assert(checkCode(input,expected,503))
+  // }
+
+  // test("Gen 2: if true print 1 else print 2") {
+  //   val input = """
+  //   void main(){
+  //     if(true) putIntLn(1);
+  //     else putIntLn(2);
+  //   }
+  //   """
+  //   val expected = "1"
+  //   assert(checkCode(input,expected,503))
+  // }
+
+  // test("Gen 2: if(1>2) print 1 else print 2") {
+  //   val input = """
+  //   void main(){
+  //     if(1>2) putIntLn(1);
+  //     else putIntLn(2);
+  //   }
+  //   """
+  //   val expected = "2"
+  //   assert(checkCode(input,expected,503))
+  // }   
+
+  // test("Gen 2: if(a<=b) print 1 else print 2") {
+  //   val input = """
+  //   void main(){
+  //     int a;
+  //     float b;
+  //     a = 10;
+  //     b = 5.5;
+  //     if(a<=b) putIntLn(1);
+  //     else putIntLn(2);
+  //   }
+  //   """
+  //   val expected = "2"
+  //   assert(checkCode(input,expected,503))
+  // } 
 
 //Expression
 //BinOp 
@@ -198,7 +236,22 @@ class CodeGenSuite extends FunSuite with TestCodeGen {
   //   """
   //   val expected = "true"
   //   assert(checkCode(input,expected,503))
+  // }
+
+  // test("Gen 2: [<] print bool a < b ") {
+  //   val input = """
+  //   void main(){
+  //     float a;
+  //     int b;
+  //     a = 0.1;
+  //     b = 3;
+  //     putBoolLn(a < b);
+  //   }
+  //   """
+  //   val expected = "true"
+  //   assert(checkCode(input,expected,503))
   // }  
+  
 
 // [&&||]
 
@@ -286,6 +339,30 @@ class CodeGenSuite extends FunSuite with TestCodeGen {
   //   }
   //   """
   //   val expected = "1.01"
+  //   assert(checkCode(input,expected,503))
+  // }
+
+  // test("Gen 1: global int a[3]; a[0] = 1; print a[0];") {
+  //   val input = """
+  //   int a[3];
+  //   void main(){
+  //     a[0] = 1;
+  //     putIntLn(a[0]);
+  //   }
+  //   """
+  //   val expected = "1"
+  //   assert(checkCode(input,expected,503))
+  // }
+
+  // test("Gen 1: exp stmt 999+(a= 1); print a;") {
+  //   val input = """
+  //   void main(){
+  //     int a;
+  //     999+(a=5);
+  //     putIntLn(a);
+  //   }
+  //   """
+  //   val expected = "5"
   //   assert(checkCode(input,expected,503))
   // }
 

@@ -87,7 +87,7 @@ class Emitter(filename:String) {
 		in match {
 			case IntType|BoolType => jvm.emitIALOAD()
 			case FloatType => jvm.emitFALOAD()
-			case (ArrayPointerType(_)|ClassType(_)|StringType) => jvm.emitAALOAD()
+			case StringType => jvm.emitAALOAD()
 			case _ => throw IllegalOperandException(in.toString);
 		}
 	}
@@ -101,7 +101,7 @@ class Emitter(filename:String) {
 		in match {
 			case IntType|BoolType => jvm.emitIASTORE()
 			case FloatType => jvm.emitFASTORE()				
-			case (ArrayPointerType(_)|ClassType(_)|StringType) => jvm.emitAASTORE()
+			case StringType => jvm.emitAASTORE()
 			case _ => throw	IllegalOperandException(in.toString)
 		}	
 	}
@@ -130,20 +130,6 @@ class Emitter(filename:String) {
 			case (ArrayPointerType(_)|ArrayType(_,_)|ClassType(_)|StringType) => jvm.emitALOAD(index)
 			case _ => throw IllegalOperandException(name)
 		}
-	}
-	/* generate the second instruction for array cell access
-	 * 
-	 */
-	def emitREADVAR2(name:String,typ:Type,frame:Frame) = 
-	{
-		//... , array, index-> ..., value
-		frame.pop();
-		typ match {
-			case (IntType|BoolType) => jvm.emitIALOAD()
-			case FloatType => jvm.emitFALOAD()
-			case StringType => jvm.emitAALOAD()
-			case _ => throw IllegalOperandException(name)			
-		}
 	}	
 
 	/**
@@ -153,7 +139,7 @@ class Emitter(filename:String) {
 	def emitWRITEVAR(name:String,inType:Type,index:Int,frame:Frame) = 
 	{
 		//..., value -> ...
-		frame.pop();		
+		frame.pop();
 		inType match {
 			case (IntType|BoolType) => jvm.emitISTORE(index)
 			case FloatType => jvm.emitFSTORE(index)
@@ -161,22 +147,23 @@ class Emitter(filename:String) {
 			case _ => throw IllegalOperandException(name)
 		}
 	}	
+
+	/* generate the second instruction for array cell access
+	 * 
+	 */
+	def emitREADVAR2(name:String,typ:Type,frame:Frame) = 
+	{
+		//... -> ..., value
+		emitALOAD(typ,frame)
+	}
 	
 	/** generate the second instruction for array cell access
 	 * 
 	 */
 	def emitWRITEVAR2(name:String,typ:Type,frame:Frame) = 
 	{
-		//... array, index, value -> ...
-		frame.pop()
-		frame.pop()
-		frame.pop()
-		typ match {					
-			case (IntType|BoolType) => jvm.emitIASTORE()
-			case FloatType => jvm.emitFASTORE()
-			case StringType => jvm.emitAASTORE()	
-			case _ => throw IllegalOperandException(name)
-		}	
+		//..., value -> ...
+		emitASTORE(typ,frame)	
 	} 
 	/** generate the field (static) directive for a class mutable or immutable attribute.
 	*	@param lexeme the name of the attribute.
@@ -376,7 +363,8 @@ class Emitter(filename:String) {
 		result.append(emitLABEL(labelO,frame));
 		result.toString();
 	}
-	
+
+
 	def emitRELOP(op:String,n:Type,trueLabel:Int,falseLabel:Int,frame:Frame) =
 	{
 		//..., value1, value2 -> ..., result
@@ -385,10 +373,7 @@ class Emitter(filename:String) {
 		frame.pop();
 		frame.pop();
 		op match {
-			case ">" => {
-				result.append(jvm.emitIFICMPLE(falseLabel))
-				result.append(jvm.emitGOTO(trueLabel))
-			}
+			case ">"  => result.append(jvm.emitIFICMPLE(falseLabel))
 			case ">=" => result.append(jvm.emitIFICMPLT(falseLabel))
 			case "<"  => result.append(jvm.emitIFICMPGE(falseLabel))
 			case "<=" => result.append(jvm.emitIFICMPGT(falseLabel))
@@ -523,6 +508,7 @@ class Emitter(filename:String) {
 		jvm.emitIFICMPLT(label);
 	}
 	
+
 	/** generate code to duplicate the value on the top of the operand stack.<p>
 	*	Stack:<p>
 	*	Before: ...,value1<p>
