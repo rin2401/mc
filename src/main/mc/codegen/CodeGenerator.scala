@@ -29,7 +29,7 @@ object CodeGenerator extends Utils {
 	def gen(ast:AST,dir:File) = {
 		val gl = init()		 
 		val gc = new CodeGenVisitor(ast,gl,dir)		
-		gc.visit(ast, null);	 
+		gc.visit(ast, null)	 
 	}
 }
 
@@ -58,19 +58,19 @@ class CodeGenVisitor(astTree:AST,env:List[Symbol],dir:File) extends BaseVisitor 
 	 *	@param o the referencing environment
 	 */
 	def genMETHOD(ast:FuncDecl,o:Any,frame:Frame) = {	
-		val isInit = ast.returnType == null
+		val isInit = ast.name.name == "<init>" && ast.returnType == null
+		val isClinit = ast.name.name == "<clinit>" && ast.returnType == null		
 		val isMain = ast.name.name == "main" && ast.param.length == 0 && ast.returnType == VoidType
-		val output = if (isInit) VoidType else ast.returnType
-		val methodName = if (isInit) "<init>" else ast.name.name
+		val methodName = ast.name.name
 		val input = if (isMain) List(ArrayPointerType(StringType)) else ast.param.map(_.varType)
+		val output = if(isInit||isClinit) VoidType else ast.returnType
 		val mtype =	FunctionType(input,output)
-		// val isStatic = false
+		
 		emit.printout(emit.emitMETHOD(methodName, mtype, !isInit, frame))
 
 		frame.enterScope(true);
 		
 		val glenv = o.asInstanceOf[List[Symbol]]
-
 		//Generate code for parameter declarations
 		val sympa = if (isInit) {
 			emit.printout(emit.emitVAR(frame.getNewIndex,"this",ClassType(className),frame.getStartLabel,frame.getEndLabel,frame))
@@ -90,6 +90,12 @@ class CodeGenVisitor(astTree:AST,env:List[Symbol],dir:File) extends BaseVisitor 
 			emit.printout(emit.emitINVOKESPECIAL(frame))
 			emit.printout(emit.emitLABEL(frame.getEndLabel(),frame))
 		}
+		else if(isClinit){
+			ast.body.asInstanceOf[Block].decl.map(x => {
+				val lexeme = className + "." + x.asInstanceOf[VarDecl].variable.name
+				emit.printout(emit.emitINITARRAY(lexeme,x.asInstanceOf[VarDecl].varType,frame))
+			})
+		}
 		else 
 			visit(ast.body,new Flag(frame,sympa,0))
 		if (output == VoidType) emit.printout(emit.emitRETURN(VoidType,frame))
@@ -97,7 +103,7 @@ class CodeGenVisitor(astTree:AST,env:List[Symbol],dir:File) extends BaseVisitor 
 		frame.exitScope();
 	}
 	
-	override def visitProgram(ast:Program,c:Any) = {
+	override def visitProgram(ast:Program,o:Any) = {
 		emit.printout(emit.emitPROLOG(className, "java.lang.Object"))		
 		//add global declarations to env symbol list
 		val sym = ast.decl.foldLeft(env)((lst,x) => {
@@ -107,10 +113,16 @@ class CodeGenVisitor(astTree:AST,env:List[Symbol],dir:File) extends BaseVisitor 
 			}
 			s::lst
 		})
+		// generate default constructor 
+		genMETHOD(FuncDecl(Id("<init>"),List(),null,Block(List(),List())),o,new Frame("<init>",VoidType))
+		// generate clinit static array
+		val gloarr = ast.decl.filter(x => x match {
+			case VarDecl(_,ArrayType(_,_)) => true
+			case _ =>  false 
+		})
+		if(gloarr.size > 0) genMETHOD(FuncDecl(Id("<clinit>"),List(),null,Block(gloarr,List())),o,new Frame("<clinit>",VoidType))		
 		//visit function declarations
 		ast.decl.filter(_.isInstanceOf[FuncDecl]).map(visit(_,SubBody(null,sym)))
-		// generate default constructor 
-		genMETHOD(FuncDecl(Id("<init>"),List(),null,Block(List(),List())),c,new Frame("<init>",VoidType))
 		emit.emitEPILOG()
 	}
 //Declaration
@@ -140,6 +152,7 @@ class CodeGenVisitor(astTree:AST,env:List[Symbol],dir:File) extends BaseVisitor 
 				val index = frame.getNewIndex
 				val name = ast.variable.name
 				emit.printout(emit.emitVAR(index,name,mtype,frame.getStartLabel,frame.getEndLabel,frame))
+				if(mtype.isInstanceOf[ArrayType]) emit.printout(emit.emitINITARRAY(index,mtype,frame)) 
 				Symbol(name,mtype,Index(index))
 			}
 			case _ => null  
@@ -153,9 +166,9 @@ class CodeGenVisitor(astTree:AST,env:List[Symbol],dir:File) extends BaseVisitor 
 		val env = sub.sym
 		val isFirst = sub.flag == 0
 		if(!isFirst) frame.enterScope(false)
+		emit.printout(emit.emitLABEL(frame.getStartLabel(),frame))
 		//Generate code for local variable declarations
 		val sym = ast.decl.asInstanceOf[List[VarDecl]].foldLeft(env)((lst,x) => visit(x,Flag(frame,null,2)).asInstanceOf[Symbol]::lst)			
-		emit.printout(emit.emitLABEL(frame.getStartLabel(),frame))
 		//Generate code for statement
 		ast.stmt.map(x => {
 			if(x.isInstanceOf[Expr])
@@ -203,12 +216,26 @@ class CodeGenVisitor(astTree:AST,env:List[Symbol],dir:File) extends BaseVisitor 
 		val buffer = new StringBuffer()
 		ast.op match {
 			case "=" => {
-				val r = visit(ast.right,new Access(frame,env,false,false)).asInstanceOf[(String,Type)]
-				buffer.append(r._1)
-				if(!isFirst) buffer.append(emit.emitDUP(frame))
-				val l = visit(ast.left,new Access(frame,env,true,false)).asInstanceOf[(String,Type)]		
-				buffer.append(l._1) 
-				if(isFirst) emit.printout(buffer.toString) else (buffer.toString,l._2)
+				if(ast.left.isInstanceOf[ArrayCell]){
+					val l = visit(ast.left,new Access(frame,env,true,false)).asInstanceOf[(String,Type)]
+					buffer.append(l._1)					
+					val r = visit(ast.right,new Access(frame,env,false,false)).asInstanceOf[(String,Type)]
+					buffer.append(r._1)
+					if(r._2!=l._2) buffer.append(emit.emitI2F(frame))
+					if(!isFirst) buffer.append(emit.emitDUPX2(frame))					
+					val name = ast.left.asInstanceOf[ArrayCell].arr.asInstanceOf[Id].name
+					buffer.append(emit.emitWRITEVAR2(name,l._2,frame))
+					if(isFirst) emit.printout(buffer.toString) else (buffer.toString,l._2)
+				}
+				else {
+					val r = visit(ast.right,new Access(frame,env,false,false)).asInstanceOf[(String,Type)]
+					buffer.append(r._1)
+					if(!isFirst) buffer.append(emit.emitDUP(frame))	
+					val l = visit(ast.left,new Access(frame,env,true,false)).asInstanceOf[(String,Type)]											
+					if(r._2!=l._2) buffer.append(emit.emitI2F(frame))					
+					buffer.append(l._1)
+					if(isFirst) emit.printout(buffer.toString) else (buffer.toString,l._2)
+				}
 			}
 			case "%" => {
 				val l = visit(ast.left,new Access(frame,env,false,false)).asInstanceOf[(String,Type)]
@@ -310,7 +337,32 @@ class CodeGenVisitor(astTree:AST,env:List[Symbol],dir:File) extends BaseVisitor 
 	}
 
 	override def visitArrayCell(ast:ArrayCell,o:Any) = {
-
+		val sub = o.asInstanceOf[Access]
+		val frame = sub.frame
+		val idx = ast.idx.asInstanceOf[IntLiteral].value
+		val arr = ast.arr.asInstanceOf[Id].name
+		val sym = lookup(arr,sub.sym,(s:Symbol)=>s.name).get
+		val mtype = sym.typ
+		val et = mtype match {
+			case ArrayType(_,t) => t 
+			case ArrayPointerType(t) => t 
+		}
+		val buffer = new StringBuffer()
+		sym.value match {
+			case Index(index) => { 
+				val name = sym.name
+				buffer.append(emit.emitREADVAR(name,mtype,index,frame)) 	//array ref
+				buffer.append(emit.emitPUSHICONST(idx,frame))				//index							
+				if(!sub.isLeft) buffer.append(emit.emitREADVAR2(name,et,frame))
+			}
+			case CName(cname) => {
+				val name = className+"."+sym.name
+				buffer.append(emit.emitGETSTATIC(name,mtype,frame))			//static array ref
+				buffer.append(emit.emitPUSHICONST(idx,frame))				//index							
+				if(!sub.isLeft) buffer.append(emit.emitREADVAR2(name,et,frame))
+			}
+		}
+		(buffer.toString,et)
 	}
 
 //Literal

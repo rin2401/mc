@@ -25,6 +25,7 @@ class Emitter(filename:String) {
 		case BoolType => "Z"
 		case StringType => "Ljava/lang/String;"
 		case VoidType => "V"
+		case ArrayType(_,t) => "["+getJVFunctionType(t)
 		case ArrayPointerType(t) => "["+getJVFunctionType(t)
 		case FunctionType(il,o) => "("+il.foldLeft("")(_+getJVFunctionType(_))+")"+getJVFunctionType(o)
 		case ClassType(t) => "L"+t+";"
@@ -84,7 +85,8 @@ class Emitter(filename:String) {
 		//..., arrayref, index -> ..., value
 		frame.pop();
 		in match {
-			case IntType => jvm.emitIALOAD()
+			case IntType|BoolType => jvm.emitIALOAD()
+			case FloatType => jvm.emitFALOAD()
 			case (ArrayPointerType(_)|ClassType(_)|StringType) => jvm.emitAALOAD()
 			case _ => throw IllegalOperandException(in.toString);
 		}
@@ -97,13 +99,14 @@ class Emitter(filename:String) {
 		frame.pop();
 		frame.pop();
 		in match {
-			case IntType => jvm.emitIASTORE()
+			case IntType|BoolType => jvm.emitIASTORE()
+			case FloatType => jvm.emitFASTORE()				
 			case (ArrayPointerType(_)|ClassType(_)|StringType) => jvm.emitAASTORE()
 			case _ => throw	IllegalOperandException(in.toString)
 		}	
 	}
 				
-	/** 	generate the var directive for a local variable.
+	/** generate the var directive for a local variable.
 	*	@param in the index of the local variable.
 	*	@param varName the name of the local variable.
 	*	@param inType the type of the local variable.
@@ -124,7 +127,7 @@ class Emitter(filename:String) {
 		inType match {
 			case (IntType|BoolType) => jvm.emitILOAD(index)
 			case FloatType => jvm.emitFLOAD(index)
-			case (ArrayPointerType(_)|ClassType(_)|StringType) => jvm.emitALOAD(index)
+			case (ArrayPointerType(_)|ArrayType(_,_)|ClassType(_)|StringType) => jvm.emitALOAD(index)
 			case _ => throw IllegalOperandException(name)
 		}
 	}
@@ -133,10 +136,13 @@ class Emitter(filename:String) {
 	 */
 	def emitREADVAR2(name:String,typ:Type,frame:Frame) = 
 	{
-		//... -> ..., value
-		//frame.push();
+		//... , array, index-> ..., value
+		frame.pop();
 		typ match {
-			case _ => throw IllegalOperandException(name)
+			case (IntType|BoolType) => jvm.emitIALOAD()
+			case FloatType => jvm.emitFALOAD()
+			case StringType => jvm.emitAALOAD()
+			case _ => throw IllegalOperandException(name)			
 		}
 	}	
 
@@ -149,8 +155,9 @@ class Emitter(filename:String) {
 		//..., value -> ...
 		frame.pop();		
 		inType match {
-			case (IntType ) => jvm.emitISTORE(index)
-			case (ArrayPointerType(_)|ClassType(_)|StringType) => jvm.emitASTORE(index)	
+			case (IntType|BoolType) => jvm.emitISTORE(index)
+			case FloatType => jvm.emitFSTORE(index)
+			case (ArrayPointerType(_)|ArrayType(_,_)|ClassType(_)|StringType) => jvm.emitASTORE(index)	
 			case _ => throw IllegalOperandException(name)
 		}
 	}	
@@ -160,9 +167,14 @@ class Emitter(filename:String) {
 	 */
 	def emitWRITEVAR2(name:String,typ:Type,frame:Frame) = 
 	{
-		//... -> ..., value
-		//frame.push();
+		//... array, index, value -> ...
+		frame.pop()
+		frame.pop()
+		frame.pop()
 		typ match {					
+			case (IntType|BoolType) => jvm.emitIASTORE()
+			case FloatType => jvm.emitFASTORE()
+			case StringType => jvm.emitAASTORE()	
 			case _ => throw IllegalOperandException(name)
 		}	
 	} 
@@ -238,7 +250,7 @@ class Emitter(filename:String) {
 			frame.push();	 
 		jvm.emitINVOKEVIRTUAL(lexeme,getJVFunctionType(in));
 	} 
-				/**
+	/**
 	*	generate ineg, fneg.
 	*	@param in the type of the operands.
 	*/
@@ -405,7 +417,7 @@ class Emitter(filename:String) {
 	def getConst(ast:Literal) = ast match {
 		case IntLiteral(i) => (i.toString,IntType)
 	}
-	/** 	generate code to initialize a local array variable.<p>
+	/** generate code to initialize a local array variable.<p>
 	*	@param index the index of the local variable.
 	*	@param in the type of the local array variable.
 	*/	
@@ -435,6 +447,30 @@ class Emitter(filename:String) {
 	// 	}
 	// 	return buffer.toString();
 	// }
+
+	def emitINITARRAY(lexeme:String,in:Type,frame:Frame) = {
+		val buffer = new StringBuffer()
+		val at = in.asInstanceOf[ArrayType]
+		val dimen = at.dimen.value
+		val et = at.eleType
+		buffer.append(emitPUSHICONST(dimen,frame))
+		buffer.append(jvm.emitNEWARRAY(getFullType(et)))
+		buffer.append(emitPUTSTATIC(lexeme,in,frame))
+		buffer.toString
+	}
+	
+	def emitINITARRAY(index:Int,in:Type,frame:Frame) = {
+		val buffer = new StringBuffer()
+		val at = in.asInstanceOf[ArrayType]
+		val dimen = at.dimen.value
+		val et = at.eleType
+		buffer.append(emitPUSHICONST(dimen,frame))
+		buffer.append(jvm.emitNEWARRAY(getFullType(et)))
+	
+		buffer.append(jvm.emitASTORE(index))
+		buffer.toString
+	}
+
 	/** 	generate code to initialize local array variables.
 	*	@param in the list of symbol entries corresponding to local array variable.
 	*/
@@ -449,6 +485,12 @@ class Emitter(filename:String) {
 		in.clear();
 		return result.toString();
 	}*/
+	
+
+
+	// def emitLISTARRAY(List[SymEntry] in) = 
+	// }
+
 	/**
 	*	generate code to jump to label if the value on top of operand stack is true.<p>
 	*	ifgt label
@@ -492,6 +534,12 @@ class Emitter(filename:String) {
 		jvm.emitDUP();
 	}
 	
+	def emitDUPX2(frame:Frame) =
+	{
+		frame.push()
+		jvm.emitDUPX2()
+	}
+
 	/**	generate code to pop the value on the top of the operand stack.
 	*/
 	def emitPOP(frame:Frame) = 
