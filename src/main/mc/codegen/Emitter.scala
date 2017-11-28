@@ -19,15 +19,15 @@ import mc.checker._
 class Emitter(filename:String) {
 	val buff = new StringBuffer()
 	val jvm = new JasminCode()
-	def getJVFunctionType(inType:Type):String = inType match {
+	def getJVMType(inType:Type):String = inType match {
 		case IntType => "I"
 		case FloatType => "F" 
 		case BoolType => "Z"
 		case StringType => "Ljava/lang/String;"
 		case VoidType => "V"
-		case ArrayType(_,t) => "["+getJVFunctionType(t)
-		case ArrayPointerType(t) => "["+getJVFunctionType(t)
-		case FunctionType(il,o) => "("+il.foldLeft("")(_+getJVFunctionType(_))+")"+getJVFunctionType(o)
+		case ArrayType(_,t) => "["+getJVMType(t)
+		case ArrayPointerType(t) => "["+getJVMType(t)
+		case FunctionType(il,o) => "("+il.foldLeft("")(_+getJVMType(_))+")"+getJVMType(o)
 		case ClassType(t) => "L"+t+";"
 	}
 	def getFullType(inType:Type):String = inType match {
@@ -113,7 +113,7 @@ class Emitter(filename:String) {
 	*	@param fromLabel the starting label of the scope where the variable is active.
 	*	@param toLabel the ending label	of the scope where the variable is active.
 	*/
-	def emitVAR(in:Int,varName:String, inType:Type, fromLabel: Int, toLabel: Int,frame:Frame) = jvm.emitVAR(in, varName, getJVFunctionType(inType), fromLabel, toLabel);
+	def emitVAR(in:Int,varName:String, inType:Type, fromLabel: Int, toLabel: Int,frame:Frame) = jvm.emitVAR(in, varName, getJVMType(inType), fromLabel, toLabel);
 
 	/**
 	*	generate code to put the value of a variable onto the operand stack.
@@ -171,25 +171,25 @@ class Emitter(filename:String) {
 	*	@param isFinal true in case of constant; false otherwise
 	*/
 	def emitATTRIBUTE(lexeme:String, in:Type, isFinal:Boolean, value:String) = 
-		jvm.emitSTATICFIELD(lexeme,getJVFunctionType(in),false)
+		jvm.emitSTATICFIELD(lexeme,getJVMType(in),false)
 
 	def emitGETSTATIC(lexeme:String, in:Type,frame:Frame) = {
 		frame.push()
-		jvm.emitGETSTATIC(lexeme, getJVFunctionType(in))
+		jvm.emitGETSTATIC(lexeme, getJVMType(in))
 	}
 			
 	def emitPUTSTATIC(lexeme:String, in: Type,frame:Frame) = {
 		frame.pop()
-		jvm.emitPUTSTATIC(lexeme, getJVFunctionType(in))
+		jvm.emitPUTSTATIC(lexeme, getJVMType(in))
 	}
 
-	def emitGETFIELD(lexeme:String, in:Type,frame:Frame) = jvm.emitGETFIELD(lexeme, getJVFunctionType(in))
+	def emitGETFIELD(lexeme:String, in:Type,frame:Frame) = jvm.emitGETFIELD(lexeme, getJVMType(in))
 	
 			
 	def emitPUTFIELD(lexeme:String, in: Type,frame:Frame) = {
 		frame.pop()
 		frame.pop()
-		jvm.emitPUTFIELD(lexeme, getJVFunctionType(in))
+		jvm.emitPUTFIELD(lexeme, getJVMType(in))
 	}
 	/**	generate code to invoke a static method
 	*	@param lexeme the qualified name of the method(i.e., class-name/method-name)
@@ -201,7 +201,7 @@ class Emitter(filename:String) {
 		typ.input.map(x=>frame.pop)
 		if (typ.output != VoidType)
 			frame.push();		
-		jvm.emitINVOKESTATIC(lexeme,getJVFunctionType(in));
+		jvm.emitINVOKESTATIC(lexeme,getJVMType(in));
 	}
 	/**	generate code to invoke a special method
 	* @param lexeme the qualified name of the method(i.e., class-name/method-name)
@@ -214,7 +214,7 @@ class Emitter(filename:String) {
 		frame.pop
 		if (typ.output != VoidType)
 			frame.push();	 
-		jvm.emitINVOKESPECIAL(lexeme,getJVFunctionType(in));
+		jvm.emitINVOKESPECIAL(lexeme,getJVMType(in));
 	} 
 	
 	/**	generate code to invoke a default special method
@@ -235,7 +235,7 @@ class Emitter(filename:String) {
 		frame.pop
 		if (typ.output != VoidType)
 			frame.push();	 
-		jvm.emitINVOKEVIRTUAL(lexeme,getJVFunctionType(in));
+		jvm.emitINVOKEVIRTUAL(lexeme,getJVMType(in));
 	} 
 	/**
 	*	generate ineg, fneg.
@@ -388,7 +388,7 @@ class Emitter(filename:String) {
 	*	@param in the type descriptor of the method.
 	*	@param isStatic <code>true</code> if the method is static; <code>false</code> otherwise.
 	*/
-	def emitMETHOD(lexeme:String, in: Type, isStatic:Boolean,frame:Frame) = jvm.emitMETHOD(lexeme,getJVFunctionType(in),isStatic)
+	def emitMETHOD(lexeme:String, in: Type, isStatic:Boolean,frame:Frame) = jvm.emitMETHOD(lexeme,getJVMType(in),isStatic)
 	/** 	generate the end directive for a function.
 	*/
 	def emitENDMETHOD(frame:Frame)	= {
@@ -427,7 +427,7 @@ class Emitter(filename:String) {
 	// 	else {
 	// 		for (int i = 0; i < dimension; i++)
 	// 			frame.pop();
-	// 		buffer.append(jvm.emitMULTIANEWARRAY(at.getJVFunctionType(), dimension));
+	// 		buffer.append(jvm.emitMULTIANEWARRAY(at.getJVMType(), dimension));
 	// 		buffer.append(jvm.emitASTORE(index));
 	// 	}
 	// 	return buffer.toString();
@@ -549,9 +549,10 @@ class Emitter(filename:String) {
 	def emitRETURN(in:Type,frame:Frame) = 
 	{
 		in match {
-			case (IntType ) => frame.pop();jvm.emitIRETURN()
+			case IntType|BoolType => frame.pop();jvm.emitIRETURN()
+			case FloatType => frame.pop();jvm.emitFRETURN()
 			case VoidType => jvm.emitRETURN()
-			//case ClassType(_) => frame.pop();jvm.emitARETURN()
+			case ArrayPointerType(_)|ArrayType(_,_)|StringType => frame.pop();jvm.emitARETURN()
 		}
 	}
 	

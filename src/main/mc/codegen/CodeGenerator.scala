@@ -173,8 +173,10 @@ class CodeGenVisitor(astTree:AST,env:List[Symbol],dir:File) extends BaseVisitor 
 		//Generate code for statement
 		ast.stmt.map(x => {
 			if(x.isInstanceOf[Literal]) null
-			else if(x.isInstanceOf[Expr]) 
-				visit(x,new Access(frame,sym,false,true))
+			else if(x.isInstanceOf[Expr]) {
+				val e = visit(x,new Access(frame,sym,false,true)).asInstanceOf[(String,Type)]
+				emit.printout(e._1)
+			}
 			else if (x.isInstanceOf[Block]) 
 				visit(x,Flag(frame,sym,1))
 			else	
@@ -188,43 +190,124 @@ class CodeGenVisitor(astTree:AST,env:List[Symbol],dir:File) extends BaseVisitor 
 		val sub = o.asInstanceOf[SubBody]
 		val frame = sub.frame
 		val env = sub.sym
-		val buffer = new StringBuffer()
 
-		val c = visit(ast.expr,new Access(frame,env,true,false)).asInstanceOf[(String,Type)]
-		buffer.append(c._1)
+		val c = visit(ast.expr,new Access(frame,env,false,false)).asInstanceOf[(String,Type)]
+		emit.printout(c._1)
 		val trueLabel = frame.getNewLabel()
 		val falseLabel = frame.getNewLabel()
-		buffer.append(emit.emitIFFALSE(falseLabel,frame))
-		val t = visit(ast.thenStmt,new Access(frame,env,true,false)).asInstanceOf[(String,Type)]
-		buffer.append(t._1)
-		buffer.append(emit.emitGOTO(trueLabel,frame))
-		buffer.append(emit.emitLABEL(falseLabel,frame))
-		if(ast.elseStmt != None){
-			val e = visit(ast.elseStmt.get,new Access(frame,env,true,false)).asInstanceOf[(String,Type)]
-			buffer.append(e._1)
+		emit.printout(emit.emitIFFALSE(falseLabel,frame))
+		//val t = visit(ast.thenStmt,new Access(frame,env,false,false)).asInstanceOf[(String,Type)]
+		val x = ast.thenStmt
+		if(x.isInstanceOf[Literal]) null
+		else if(x.isInstanceOf[Expr]) {
+			val e = visit(x,new Access(frame,env,false,true)).asInstanceOf[(String,Type)]
+			emit.printout(e._1)
 		}
-		buffer.append(emit.emitLABEL(trueLabel,frame))
-		emit.printout(buffer.toString)
-		//emit.emitRELOP(op:String,n:Type,trueLabel:Int,falseLabel:Int,frame:Frame)
+		else if (x.isInstanceOf[Block]) 
+			visit(x,Flag(frame,env,1))
+		else	
+			visit(x,SubBody(frame,env))
+		
+		emit.printout(emit.emitGOTO(trueLabel,frame))
+		emit.printout(emit.emitLABEL(falseLabel,frame))
+		if(ast.elseStmt != None){
+			val x = ast.elseStmt.get
+			if(x.isInstanceOf[Literal]) null
+			else if(x.isInstanceOf[Expr]) {
+				val e = visit(x,new Access(frame,env,false,true)).asInstanceOf[(String,Type)]
+				emit.printout(e._1)
+			}
+			else if (x.isInstanceOf[Block]) 
+				visit(x,Flag(frame,env,1))
+			else	
+				visit(x,SubBody(frame,env))
+		}
+		emit.printout(emit.emitLABEL(trueLabel,frame))
 	}
 
 	override def visitFor(ast:For,o:Any) = {
+		val sub = o.asInstanceOf[SubBody]
+		val frame = sub.frame
+		val env = sub.sym		
+		
+		frame.enterLoop()
+		val label1 = frame.getNewLabel()		
+		val brelabel = frame.getBreakLabel()
+		val conlabel = frame.getContinueLabel()
 
+		val e1 = visit(ast.expr1,new Access(frame,env,false,true)).asInstanceOf[(String,Type)] /// need fix
+		emit.printout(e1._1)
+		emit.printout(emit.emitLABEL(label1,frame))
+		val e2 = visit(ast.expr2,new Access(frame,env,false,false)).asInstanceOf[(String,Type)] 
+		emit.printout(e2._1)
+		emit.printout(emit.emitIFFALSE(brelabel,frame))
+		
+		val x = ast.loop
+		if(x.isInstanceOf[Literal]) null
+		else if(x.isInstanceOf[Expr]) {
+			val e = visit(x,new Access(frame,env,false,true)).asInstanceOf[(String,Type)] 
+			emit.printout(e._1)
+		}
+		else if (x.isInstanceOf[Block]) 
+			visit(x,Flag(frame,env,1))
+		else	
+			visit(x,SubBody(frame,env))
+		emit.printout(emit.emitLABEL(conlabel,frame))
+		val e3 = visit(ast.expr3,new Access(frame,env,false,true)).asInstanceOf[(String,Type)] /// need fix
+		emit.printout(e3._1)
+		emit.printout(emit.emitGOTO(label1,frame))		
+		emit.printout(emit.emitLABEL(brelabel,frame))		
+		frame.exitLoop()
 	}
 
 	override def visitDowhile(ast:Dowhile,o:Any) = {
+		val sub = o.asInstanceOf[SubBody]
+		val frame = sub.frame
+		val env = sub.sym		
+	
+		frame.enterLoop()
+		val brelabel = frame.getBreakLabel()
+		val conlabel = frame.getContinueLabel()	
+		emit.printout(emit.emitLABEL(conlabel,frame))
 
+		ast.sl.map(x => {
+			if(x.isInstanceOf[Literal]) null
+			else if(x.isInstanceOf[Expr]) {
+				val e = visit(x,new Access(frame,env,false,true)).asInstanceOf[(String,Type)]
+				emit.printout(e._1)
+			}
+			else if (x.isInstanceOf[Block]) 
+				visit(x,Flag(frame,env,1))
+			else	
+				visit(x,SubBody(frame,env))
+		})
+		val e = visit(ast.exp,new Access(frame,env,false,false)).asInstanceOf[(String,Type)]
+		emit.printout(e._1)
+		emit.printout(emit.emitIFTRUE(conlabel,frame))
+		emit.printout(emit.emitLABEL(brelabel,frame))
+		frame.exitLoop()
 	}
 
 	override def visitBreak(ast:Break.type,o:Any) = {
-
+		val frame = o.asInstanceOf[SubBody].frame
+		emit.printout(emit.emitGOTO(frame.getBreakLabel(),frame))
 	}
 
 	override def visitContinue(ast:Continue.type,o:Any) = {
-
+		val frame = o.asInstanceOf[SubBody].frame
+		emit.printout(emit.emitGOTO(frame.getContinueLabel(),frame))
 	}
 
 	override def visitReturn(ast:Return,o:Any) = {
+		val sub = o.asInstanceOf[SubBody]
+		val frame = sub.frame
+		val env = sub.sym
+		if(ast.expr == None) emit.printout(emit.emitRETURN(VoidType,frame))
+		else {
+			val e = visit(ast.expr.get,new Access(frame,env,false,false)).asInstanceOf[(String,Type)] /// need fix
+			emit.printout(e._1)
+			emit.printout(emit.emitRETURN(e._2,frame))
+		}
 
 	}
 
@@ -247,7 +330,7 @@ class CodeGenVisitor(astTree:AST,env:List[Symbol],dir:File) extends BaseVisitor 
 					if(!isFirst) buffer.append(emit.emitDUPX2(frame))					
 					val name = ast.left.asInstanceOf[ArrayCell].arr.asInstanceOf[Id].name
 					buffer.append(emit.emitWRITEVAR2(name,l._2,frame))
-					if(isFirst) emit.printout(buffer.toString) else (buffer.toString,l._2)
+					(buffer.toString,l._2)
 				}
 				else {
 					val r = visit(ast.right,new Access(frame,env,false,false)).asInstanceOf[(String,Type)]
@@ -256,7 +339,7 @@ class CodeGenVisitor(astTree:AST,env:List[Symbol],dir:File) extends BaseVisitor 
 					val l = visit(ast.left,new Access(frame,env,true,false)).asInstanceOf[(String,Type)]											
 					if(r._2!=l._2) buffer.append(emit.emitI2F(frame))					
 					buffer.append(l._1)
-					if(isFirst) emit.printout(buffer.toString) else (buffer.toString,l._2)
+					(buffer.toString,l._2)
 				}
 			}
 			case "%" => {
@@ -265,11 +348,8 @@ class CodeGenVisitor(astTree:AST,env:List[Symbol],dir:File) extends BaseVisitor 
 				buffer.append(l._1)
 				buffer.append(r._1)
 				buffer.append(emit.emitDIV(frame))
-				if(isFirst){
-					buffer.append(emit.emitPOP(frame))
-					emit.printout(buffer.toString) 
-				}
-				else (buffer.toString,l._2)
+				if(isFirst) buffer.append(emit.emitPOP(frame))
+				(buffer.toString,l._2)
 			} 
 			case "&&" => {
 				val l = visit(ast.left,new Access(frame,env,false,false)).asInstanceOf[(String,Type)]
@@ -277,11 +357,8 @@ class CodeGenVisitor(astTree:AST,env:List[Symbol],dir:File) extends BaseVisitor 
 				buffer.append(l._1)
 				buffer.append(r._1)
 				buffer.append(emit.emitANDOP(frame))
-				if(isFirst) {
-					buffer.append(emit.emitPOP(frame))
-					emit.printout(buffer.toString)
-				}
-				else (buffer.toString,l._2)
+				if(isFirst) buffer.append(emit.emitPOP(frame))
+				(buffer.toString,l._2)
 			} 
 			case "||" => {
 				val l = visit(ast.left,new Access(frame,env,false,false)).asInstanceOf[(String,Type)]
@@ -289,11 +366,8 @@ class CodeGenVisitor(astTree:AST,env:List[Symbol],dir:File) extends BaseVisitor 
 				buffer.append(l._1)
 				buffer.append(r._1)
 				buffer.append(emit.emitOROP(frame))
-				if(isFirst){
-					buffer.append(emit.emitPOP(frame))
-					emit.printout(buffer.toString)
-				}
-				else (buffer.toString,l._2)
+				if(isFirst) buffer.append(emit.emitPOP(frame))
+				(buffer.toString,l._2)
 			} 
 			case _ => {
 				val l = visit(ast.left,new Access(frame,env,false,false)).asInstanceOf[(String,Type)]
@@ -308,11 +382,8 @@ class CodeGenVisitor(astTree:AST,env:List[Symbol],dir:File) extends BaseVisitor 
 					case ("*"|"/") => buffer.append(emit.emitMULOP(ast.op,otype,frame)); otype
 					case _ => buffer.append(emit.emitREOP(ast.op,otype,frame)); BoolType
 				}
-				if(isFirst) {
-					buffer.append(emit.emitPOP(frame))
-					emit.printout(buffer.toString)
-				}
-				else (buffer.toString,rtype)
+				if(isFirst) buffer.append(emit.emitPOP(frame))
+				(buffer.toString,rtype)
 			}			  
 		}
 	}
@@ -330,10 +401,8 @@ class CodeGenVisitor(astTree:AST,env:List[Symbol],dir:File) extends BaseVisitor 
 			case "-" => buffer.append(emit.emitNEGOP(b._2,frame)) 
 			case "!" => buffer.append(emit.emitNOT(b._2,frame))
 		}
-		if(isFirst){
- 			buffer.append(emit.emitPOP(frame));
-			emit.printout(buffer.toString)
-		} else (buffer.toString,b._2) 
+		if(isFirst) buffer.append(emit.emitPOP(frame))
+		(buffer.toString,b._2) 
 	}
 
 	override def visitCallExpr(ast:CallExpr,o:Any) = {
@@ -352,7 +421,7 @@ class CodeGenVisitor(astTree:AST,env:List[Symbol],dir:File) extends BaseVisitor 
 		//println(in._1)
 		buffer.append(in._1)	
 		buffer.append(emit.emitINVOKESTATIC(cname+"/"+ast.method.name,ftype,frame))
-		if(isFirst) emit.printout(buffer.toString) else (buffer.toString,ftype.output)		
+		(buffer.toString,ftype.output)		
 	}
 
 //LHS
