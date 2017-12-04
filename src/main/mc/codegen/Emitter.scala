@@ -78,6 +78,10 @@ class Emitter(filename:String) {
 			case _ => throw IllegalOperandException(in)
 		}
 
+	def emitPUSHNULL(frame:Frame) = {
+		frame.push() 
+		jvm.emitPUSHNULL()
+	}
 	////////////////////////////////////////////////////////////////
 				
 	def emitALOAD(in:Type,frame:Frame) =	
@@ -350,8 +354,8 @@ class Emitter(filename:String) {
 			case ">=" => if(in == IntType) jvm.emitIFICMPLT(labelF) else jvm.emitIFLT(labelF)
 			case "<"  => if(in == IntType) jvm.emitIFICMPGE(labelF) else jvm.emitIFGE(labelF)
 			case "<=" => if(in == IntType) jvm.emitIFICMPGT(labelF) else jvm.emitIFGT(labelF)
-			case "!=" => if(in == IntType) jvm.emitIFICMPEQ(labelF) else jvm.emitIFEQ(labelF)
-			case "==" => if(in == IntType) jvm.emitIFICMPNE(labelF) else jvm.emitIFNE(labelF)
+			case "!=" => jvm.emitIFICMPEQ(labelF)
+			case "==" => jvm.emitIFICMPNE(labelF)
 		}
 		if(in == FloatType) result.append(jvm.emitFCMPL())
 		result.append(emitif)
