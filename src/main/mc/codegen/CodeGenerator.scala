@@ -209,20 +209,20 @@ class CodeGenVisitor(astTree:AST,env:List[Symbol],dir:File) extends BaseVisitor 
 		val sym = sub.sym		
 		
 		frame.enterLoop()
-		val label1 = frame.getNewLabel()		
-		val brelabel = frame.getBreakLabel()
-		val conlabel = frame.getContinueLabel()
+		val inLabel = frame.getNewLabel()		
+		val breLabel = frame.getBreakLabel()
+		val conLabel = frame.getContinueLabel()
 
 		visitStmt(ast.expr1,frame,sym)
-		emit.printout(emit.emitLABEL(label1,frame))
+		emit.printout(emit.emitLABEL(inLabel,frame))
 		val e2 = visitExpr(ast.expr2,frame,sym)
 		emit.printout(e2._1)
-		emit.printout(emit.emitIFFALSE(brelabel,frame))
+		emit.printout(emit.emitIFFALSE(breLabel,frame))
 		visitStmt(ast.loop,frame,sym)
-		emit.printout(emit.emitLABEL(conlabel,frame))
+		emit.printout(emit.emitLABEL(conLabel,frame))
 		visitStmt(ast.expr3,frame,sym)
-		emit.printout(emit.emitGOTO(label1,frame))		
-		emit.printout(emit.emitLABEL(brelabel,frame))		
+		emit.printout(emit.emitGOTO(inLabel,frame))		
+		emit.printout(emit.emitLABEL(breLabel,frame))		
 		frame.exitLoop()
 	}
 
@@ -230,16 +230,18 @@ class CodeGenVisitor(astTree:AST,env:List[Symbol],dir:File) extends BaseVisitor 
 		val sub = o.asInstanceOf[SubBody]
 		val frame = sub.frame
 		val sym = sub.sym		
+
+		val inLabel = frame.getNewLabel()
 	
 		frame.enterLoop()
 		val breLabel = frame.getBreakLabel()
 		val conLabel = frame.getContinueLabel()	
+		emit.printout(emit.emitLABEL(inLabel,frame))
+		ast.sl.map(visitStmt(_,frame,sym))
 		emit.printout(emit.emitLABEL(conLabel,frame))
-
-		ast.sl.map(visitStmt(_,frame,sym)).exists(_==true)
 		val e = visitExpr(ast.exp,frame,sym)
 		emit.printout(e._1)
-		emit.printout(emit.emitIFTRUE(conLabel,frame))
+		emit.printout(emit.emitIFTRUE(inLabel,frame))
 		emit.printout(emit.emitLABEL(breLabel,frame))
 		frame.exitLoop()
 	}

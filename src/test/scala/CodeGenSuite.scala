@@ -253,10 +253,10 @@ class CodeGenSuite extends FunSuite with TestCodeGen {
     }
     """
     val expected = "1"
-    assert(checkCode(input,expected,521))
+    assert(checkCode(input,expected,520))
   }
 
-  test("Gen 22: if(1>2) print 1 else print 2") {
+  test("Gen 21: if(1>2) print 1 else print 2") {
     val input = """
     void main(){
       if(1>2) putIntLn(1);
@@ -264,10 +264,10 @@ class CodeGenSuite extends FunSuite with TestCodeGen {
     }
     """
     val expected = "2"
-    assert(checkCode(input,expected,522))
+    assert(checkCode(input,expected,521))
   }   
 
-  test("Gen 23: if(a<=b) print 1 else print 2") {
+  test("Gen 22: if(a<=b) print 1 else print 2") {
     val input = """
     void main(){
       int a;
@@ -279,12 +279,12 @@ class CodeGenSuite extends FunSuite with TestCodeGen {
     }
     """
     val expected = "2"
-    assert(checkCode(input,expected,523))
+    assert(checkCode(input,expected,522))
   } 
 
 //For Statement
 
-  test("Gen 24: simple for statement") {
+  test("Gen 23: simple for statement") {
     val input = """
     void main(){
       int i;
@@ -292,10 +292,10 @@ class CodeGenSuite extends FunSuite with TestCodeGen {
     }
     """
     val expected = "12345"
-    assert(checkCode(input,expected,524))
+    assert(checkCode(input,expected,523))
   } 
 
-  test("Gen 25: if statement in for statement") {
+  test("Gen 24: if statement in for statement") {
     val input = """
     void main(){
       int i;
@@ -305,10 +305,10 @@ class CodeGenSuite extends FunSuite with TestCodeGen {
     }
     """
     val expected = "246810"
-    assert(checkCode(input,expected,525))
+    assert(checkCode(input,expected,524))
   }   
   
-  test("Gen 26: for statement in for statement") {
+  test("Gen 25: for statement in for statement") {
     val input = """
     void main(){
       int i, j;
@@ -323,10 +323,10 @@ class CodeGenSuite extends FunSuite with TestCodeGen {
     }
     """
     val expected = "1,1;1,2;2,1;2,2;3,1;3,2;"
-    assert(checkCode(input,expected,526))
+    assert(checkCode(input,expected,525))
   }
 
-  test("Gen 2: do statement in for statement") {
+  test("Gen 26: do statement in for statement") {
     val input = """
     void main(){
       int i, j;
@@ -343,12 +343,12 @@ class CodeGenSuite extends FunSuite with TestCodeGen {
     }
     """
     val expected = "1,1;1,2;2,1;2,2;3,1;3,2;"
-    assert(checkCode(input,expected,527))
+    assert(checkCode(input,expected,526))
   }
 
 //Dowhile Statement
 
-  test("Gen 28: do print 1 while i<=5") {
+  test("Gen 27: do print 1 while i<=5") {
     val input = """
     void main(){
       int i;
@@ -361,10 +361,10 @@ class CodeGenSuite extends FunSuite with TestCodeGen {
     }
     """
     val expected = "11111"
-    assert(checkCode(input,expected,528))
+    assert(checkCode(input,expected,527))
   }
 
-  test("Gen 2: do print 1 while i<=5 no block") {
+  test("Gen 28: do print 1 while i<=5 no block") {
     val input = """
     void main(){
       int i;
@@ -376,7 +376,7 @@ class CodeGenSuite extends FunSuite with TestCodeGen {
     }
     """
     val expected = "11111"
-    assert(checkCode(input,expected,503))
+    assert(checkCode(input,expected,528))
   } 
 
   test("Gen 29: do print 1 while i<=5 2 block") {
