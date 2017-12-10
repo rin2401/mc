@@ -65,9 +65,7 @@ class CodeGenVisitor(astTree:AST,env:List[Symbol],dir:File) extends BaseVisitor 
 		val mtype =	FunctionType(input,output)
 		
 		emit.printout(emit.emitMETHOD(methodName, mtype, !isInit, frame))
-
 		frame.enterScope(true);
-		
 		val glenv = o.asInstanceOf[List[Symbol]]
 		//Generate code for parameter declarations
 		val sym = if (isInit) {
@@ -134,8 +132,9 @@ class CodeGenVisitor(astTree:AST,env:List[Symbol],dir:File) extends BaseVisitor 
 			case _ =>  false 
 		})
 		if(arr.size > 0) genMETHOD(FuncDecl(Id("<clinit>"),List(),null,Block(arr,List())),o,new Frame("<clinit>",VoidType))		
-
+		
 		emit.emitEPILOG()
+
 	}
 //Declaration
 
@@ -170,7 +169,7 @@ class CodeGenVisitor(astTree:AST,env:List[Symbol],dir:File) extends BaseVisitor 
 			emit.printout(e._1)
 			if(e._2 != VoidType) emit.printout(emit.emitPOP(frame))	
 		}
-		else visit(ast,SubBody(frame,sym)).asInstanceOf[Boolean]
+		else visit(ast,SubBody(frame,sym))
 	}
 
 	def visitExpr(ast:Expr,frame:Frame,sym:List[Symbol],isLeft:Boolean=false) = visit(ast,new Access(frame,sym,isLeft,false)).asInstanceOf[(String,Type)]
@@ -264,7 +263,7 @@ class CodeGenVisitor(astTree:AST,env:List[Symbol],dir:File) extends BaseVisitor 
 			emit.printout(e._1)
 			if(e._2 == IntType && frame.returnType == FloatType) emit.printout(emit.emitI2F(frame))
 		}
-		emit.printout(emit.emitGOTO(frame.getEndLabel(),frame))
+		emit.printout(emit.emitGOTO(1,frame))
 	}
 
 //Expression
@@ -282,8 +281,7 @@ class CodeGenVisitor(astTree:AST,env:List[Symbol],dir:File) extends BaseVisitor 
 					buffer.append(r._1)
 					if(r._2!=l._2) buffer.append(emit.emitI2F(frame))
 					buffer.append(emit.emitDUPX2(frame))					
-					val name = ast.left.asInstanceOf[ArrayCell].arr.asInstanceOf[Id].name
-					buffer.append(emit.emitWRITEVAR2(name,l._2,frame))
+					buffer.append(emit.emitASTORE(l._2,frame))
 					(buffer.toString,l._2)
 				}
 				else {
@@ -301,7 +299,7 @@ class CodeGenVisitor(astTree:AST,env:List[Symbol],dir:File) extends BaseVisitor 
 				val r = visitExpr(ast.right,frame,sym)
 				buffer.append(l._1)
 				buffer.append(r._1)
-				buffer.append(emit.emitDIV(frame))
+				buffer.append(emit.emitMOD(frame))
 				(buffer.toString,l._2)
 			} 
 			case "&&" => {
@@ -347,9 +345,18 @@ class CodeGenVisitor(astTree:AST,env:List[Symbol],dir:File) extends BaseVisitor 
 				buffer.append(r._1)
 				if(r._2 != otype) buffer.append(emit.emitI2F(frame)) 
 				val rtype = ast.op match {
-					case ("+"|"-") => buffer.append(emit.emitADDOP(ast.op,otype,frame)); otype
-					case ("*"|"/") => buffer.append(emit.emitMULOP(ast.op,otype,frame)); otype
-					case (">"|"<"|">="|"<=") => buffer.append(emit.emitREOP(ast.op,otype,frame)); BoolType
+					case ("+"|"-") => {
+						buffer.append(emit.emitADDOP(ast.op,otype,frame))
+						otype
+					}
+					case ("*"|"/") => {
+						buffer.append(emit.emitMULOP(ast.op,otype,frame))
+						otype
+					}
+					case (">"|"<"|">="|"<="|"=="|"!=") => { 
+						buffer.append(emit.emitREOP(ast.op,otype,frame))
+						BoolType
+					}
 				}
 				(buffer.toString,rtype)
 			}			  
@@ -415,29 +422,17 @@ class CodeGenVisitor(astTree:AST,env:List[Symbol],dir:File) extends BaseVisitor 
 	override def visitArrayCell(ast:ArrayCell,o:Any) = {
 		val buffer = new StringBuffer()
 		val sub = o.asInstanceOf[Access]
+		val sym = sub.sym
 		val frame = sub.frame
-		val idx = ast.idx.asInstanceOf[IntLiteral].value
-		val arr = ast.arr.asInstanceOf[Id].name
-		val sym = lookup(arr,sub.sym,(s:Symbol)=>s.name).get
-		val mtype = sym.typ
-		val et = mtype match {
+		val arr = visitExpr(ast.arr,frame,sym).asInstanceOf[(String,Type)]
+		val idx = visitExpr(ast.idx,frame,sym).asInstanceOf[(String,Type)]		
+		val et = arr._2 match {
 			case ArrayType(_,t) => t 
 			case ArrayPointerType(t) => t 
 		}
-		sym.value match {
-			case Index(index) => { 
-				val name = sym.name
-				buffer.append(emit.emitREADVAR(name,mtype,index,frame))
-				buffer.append(emit.emitPUSHICONST(idx,frame))					
-				if(!sub.isLeft) buffer.append(emit.emitREADVAR2(name,et,frame))
-			}
-			case CName(cname) => {
-				val name = className+"."+sym.name
-				buffer.append(emit.emitGETSTATIC(name,mtype,frame))
-				buffer.append(emit.emitPUSHICONST(idx,frame))					
-				if(!sub.isLeft) buffer.append(emit.emitREADVAR2(name,et,frame))
-			}
-		}
+		buffer.append(arr._1)
+		buffer.append(idx._1)					
+		if(!sub.isLeft) buffer.append(emit.emitALOAD(et,frame))
 		(buffer.toString,et)
 	}
 
