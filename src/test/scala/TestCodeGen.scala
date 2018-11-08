@@ -30,6 +30,7 @@ trait TestCodeGen extends TestUtils {
         val ast = astbuild.visit(progtree).asInstanceOf[Program]
         test(ast, i)
     }
+
     def test(ast:AST,i:Int) : Unit = {
         try {
             val outdir = soldir + sepa + i
@@ -44,7 +45,6 @@ trait TestCodeGen extends TestUtils {
             val url2 = f2.toURI.toURL
             // code generated
             val url = flder.toURI.toURL
-
             val urls = Array[URL](url,url2)
             // Create a new class loader with the directory
             val cl = new URLClassLoader(urls)

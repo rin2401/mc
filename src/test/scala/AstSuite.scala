@@ -1131,10 +1131,4 @@ class AstSuite extends FunSuite with TestAst {
     assert(checkAst(input,expected,302))
   }
 
-  test("AST 103: 2 declare var and array inline") {
-    val input = """string[] a (int b, string c[]) {} 
-    """
-    val expected = Program(List(FuncDecl(Id("main"),List(),IntType,Block(List(),List(BinaryOp("=",ArrayCell(Id("g"),ArrayCell(Id("f"),IntLiteral(2))),IntLiteral(5)))))))
-    assert(checkAst(input,expected,303))
-  }
 }

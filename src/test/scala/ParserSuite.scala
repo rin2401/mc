@@ -7,7 +7,7 @@ import org.scalatest.FunSuite
 class ParserSuite  extends FunSuite with TestParser {
 
   test("Parser 1: A simple program") {
-    val input = """String[] a (int b, String c[]) {} 
+    val input = """string[] a (int b, string c[]) {} 
     """
     val expect = "sucessful"
     assert(checkRec(input,expect,101))
