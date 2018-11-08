@@ -13,3 +13,4 @@ src/test/scala/testcases/
 \.cache-main
 \.cache-tests
 \.classpath
+result\.txt
