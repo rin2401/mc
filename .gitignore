@@ -1,13 +1,19 @@
+!lib/
+
 bin/
 result/
 target/
-src/test/scala/solutions/
-src/test/scala/testcases/
+# src/test/scala/solutions/
+# src/test/scala/testcases/
 
 \.idea/
 \.metadata/
 \.settings/
 \.project/
+
+*.txt
+*.class
+*.j
 
 \.DS_Store
 \.cache-main
