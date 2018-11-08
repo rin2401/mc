@@ -1,6 +1,0 @@
- void func(){
-                      int i,j,a;
-                      for(i=0;i<5;i=i+1)
-                        for(j=10;j>5;j=j-1)
-                          a=1;
-                    }

@@ -1,5 +1,0 @@
-
-    int main(){
-      -true;
-      return 1;
-    }

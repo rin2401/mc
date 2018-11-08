@@ -1,1 +1,0 @@
-string main(int a, boolean b[]){}

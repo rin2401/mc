@@ -1,5 +1,0 @@
- void func(int a[],int b){
-                      int a;
-                      a=1;      
-                      int b;
-                    }

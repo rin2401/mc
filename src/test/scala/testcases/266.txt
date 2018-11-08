@@ -1,5 +1,0 @@
-
-    float main(){
-      return 1.23E-4;
-    }
-    

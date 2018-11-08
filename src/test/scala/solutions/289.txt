@@ -1,1 +1,0 @@
-Program(List(FuncDecl(Id("main"),List(),IntType,Block(List(),List(BinaryOp("=",Id("fp"),CallExpr(Id("fopen"),List(StringLiteral("file.txt"),StringLiteral("r")))),CallExpr(Id("fclose"),List(Id("fp"))),Return(Some(IntLiteral(0))))))))

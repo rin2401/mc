@@ -1,1 +1,0 @@
-Program(List(FuncDecl(Id("main"),List(),StringType,Block(List(),List(Return(Some(StringLiteral("String"))))))))

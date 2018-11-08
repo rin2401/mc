@@ -1,7 +1,0 @@
-
-    boolean a;
-    int main(){
-      a || true;
-      true && false;
-      return 1;
-    }

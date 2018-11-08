@@ -1,7 +1,0 @@
-
-    void main(){
-      do
-      a=a+1;
-      while array[1];
-    }
-    

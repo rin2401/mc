@@ -1,1 +1,0 @@
-Program(List(FuncDecl(Id("main"),List(VarDecl(Id("a"),StringType)),FloatType,Block(List(),List()))))

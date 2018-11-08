@@ -1,4 +1,0 @@
-
-    int foo(int a, float b, string b){
-      return 1;
-    }

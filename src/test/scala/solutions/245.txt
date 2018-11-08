@@ -1,1 +1,0 @@
-Program(List(FuncDecl(Id("fact"),List(VarDecl(Id("n"),IntType)),IntType,Block(List(),List(If(BinaryOp("<=",Id("n"),IntLiteral(0)),Return(Some(IntLiteral(1))),Some(Return(Some(BinaryOp("*",Id("n"),CallExpr(Id("fact"),List(BinaryOp("-",Id("n"),IntLiteral(1))))))))))))))

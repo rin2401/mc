@@ -1,1 +1,0 @@
-Program(List(FuncDecl(Id("main"),List(),IntType,Block(List(VarDecl(Id("a"),IntType)),List(BinaryOp("=",Id("a"),BinaryOp("*",BinaryOp("+",IntLiteral(1),IntLiteral(2)),CallExpr(Id("sum"),List(IntLiteral(2))))))))))

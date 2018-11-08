@@ -1,5 +1,0 @@
-True
-TRUE
-False
-FALSE
-<EOF>

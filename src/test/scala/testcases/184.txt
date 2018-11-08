@@ -1,4 +1,0 @@
- int func(){
-                      float a;
-                      a = .e2;
-                    }

@@ -1,6 +1,0 @@
-
-    int main(){
-      do a;
-      while true;
-      return 1;
-    }

@@ -1,6 +1,0 @@
-
-    int main(){
-      if(exp1){}
-      else{}
-    }
-    

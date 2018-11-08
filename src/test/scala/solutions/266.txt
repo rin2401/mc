@@ -1,1 +1,0 @@
-Program(List(FuncDecl(Id("main"),List(),FloatType,Block(List(),List(Return(Some(FloatLiteral(1.23E-4f))))))))

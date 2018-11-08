@@ -1,5 +1,0 @@
-
-    int main(){
-      "rin2401" && false;
-      return 1;
-    }

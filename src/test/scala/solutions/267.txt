@@ -1,1 +1,0 @@
-Program(List(FuncDecl(Id("foo"),List(),IntType,Block(List(),List(BinaryOp("=",ArrayCell(CallExpr(Id("foo"),List(IntLiteral(2))),IntLiteral(3)),BinaryOp("||",Id("a"),BinaryOp("&&",Id("b"),BinaryOp("+",BinaryOp("+",BinaryOp("*",BinaryOp("-",Id("c"),FloatLiteral(3.54000011E11f)),IntLiteral(9)),BinaryOp("/",FloatLiteral(10.0f),IntLiteral(4))),BooleanLiteral(true))))))))))

@@ -1,7 +1,0 @@
-
-    float i;
-    int a[3];
-    int main(){
-      a[i];
-      return 1;
-    }

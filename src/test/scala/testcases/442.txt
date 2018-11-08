@@ -1,6 +1,0 @@
-
-    int a[3];
-    int main(){
-      a[1]="rin2401";
-      return 1;
-    }

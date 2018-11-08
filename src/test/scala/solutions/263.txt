@@ -1,1 +1,0 @@
-Program(List(FuncDecl(Id("main"),List(),IntType,Block(List(),List(Return(Some(CallExpr(Id("sum"),List(IntLiteral(10))))))))))

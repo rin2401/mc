@@ -1,7 +1,0 @@
-
-    int a;
-    int main(){
-      float a;
-      string a[3];
-    }
-    

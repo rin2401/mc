@@ -1,7 +1,0 @@
-
-    int a;
-    int main(){
-      39%241;
-      a%39;
-      return 1;
-    }

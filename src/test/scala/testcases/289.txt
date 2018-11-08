@@ -1,6 +1,0 @@
-
-    int main(){
-      fp = fopen("file.txt", "r");
-      fclose(fp);
-      return 0;
-    }

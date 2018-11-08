@@ -1,4 +1,0 @@
- void func(){
-                      int a;
-                      if(true) if(false) a=1; else a=2;    
-                    }

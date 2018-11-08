@@ -1,5 +1,0 @@
-
-    void main(){
-      putStringLn("rin2401");
-    }
-    

@@ -1,1 +1,0 @@
-Type Mismatch In Statement: For(IntLiteral(1),BooleanLiteral(false),FloatLiteral(1.2f),IntLiteral(1))

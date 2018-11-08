@@ -1,5 +1,0 @@
-
-    float main(){
-      return 1.23+4*a%5/b;
-    }
-    

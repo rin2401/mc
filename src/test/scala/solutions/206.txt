@@ -1,1 +1,0 @@
-Program(List(VarDecl(Id("a"),IntType),VarDecl(Id("b"),FloatType)))

@@ -1,3 +1,0 @@
-int main () {
-                    string s = "This is a string;
-                  }

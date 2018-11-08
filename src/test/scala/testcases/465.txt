@@ -1,1 +1,0 @@
-void foo(boolean a){return;}  void main(){foo(1);return;}

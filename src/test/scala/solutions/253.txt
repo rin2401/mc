@@ -1,1 +1,0 @@
-Program(List(FuncDecl(Id("main"),List(),IntType,Block(List(),List(CallExpr(Id("complex"),List(BinaryOp("-",BinaryOp("+",ArrayCell(Id("a"),IntLiteral(2)),BinaryOp("/",BinaryOp("*",IntLiteral(1),CallExpr(Id("fact"),List(IntLiteral(2)))),UnaryOp("-",IntLiteral(2)))),IntLiteral(5)),BooleanLiteral(true),FloatLiteral(1.23f))))))))

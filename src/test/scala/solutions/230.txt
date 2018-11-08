@@ -1,1 +1,0 @@
-Program(List(FuncDecl(Id("main"),List(),IntType,Block(List(),List(UnaryOp("!",UnaryOp("!",Id("a"))),UnaryOp("-",UnaryOp("!",IntLiteral(1))),UnaryOp("-",UnaryOp("-",FloatLiteral(1.2f))),UnaryOp("-",UnaryOp("-",UnaryOp("-",BooleanLiteral(false)))))))))

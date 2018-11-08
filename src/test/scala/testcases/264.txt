@@ -1,5 +1,0 @@
-
-    string main(){
-      return "String";
-    }
-    

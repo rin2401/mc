@@ -1,5 +1,0 @@
-
-    int main(){
-      309%"rin2401";
-      return 1;
-    }

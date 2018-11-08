@@ -1,2 +1,0 @@
-This is a string
-Unclosed string: This is

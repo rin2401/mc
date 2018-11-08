@@ -1,1 +1,0 @@
- boolean[] func(int a, float b[]){}

@@ -1,4 +1,0 @@
-
-    int main(){
-      for(1;true;1) 1;
-    }

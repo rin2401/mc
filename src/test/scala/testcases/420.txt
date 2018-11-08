@@ -1,9 +1,0 @@
-
-    void foo1(){
-      return;
-    } 
-    int foo(){
-      int foo1;
-      foo1();
-      return 1;
-    }

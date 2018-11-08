@@ -1,1 +1,0 @@
-Program(List(FuncDecl(Id("main"),List(),IntType,Block(List(),List(BinaryOp(">",Id("a"),IntLiteral(1)),BinaryOp("<",Id("a"),FloatLiteral(1.2f)),BinaryOp(">=",Id("a"),FloatLiteral(1200.0f)),BinaryOp("<=",Id("a"),IntLiteral(2)))))))

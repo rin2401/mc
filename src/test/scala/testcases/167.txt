@@ -1,5 +1,0 @@
- int foo() {
-                      foo();
-                      foo(3);
-                      foo("",true);
-                    }

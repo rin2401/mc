@@ -1,5 +1,0 @@
-
-    int main(){
-      foo();
-      return 1;
-    }

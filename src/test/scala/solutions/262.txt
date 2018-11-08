@@ -1,1 +1,0 @@
-Program(List(FuncDecl(Id("main"),List(),IntType,Block(List(),List(BinaryOp("==",BinaryOp(">=",BinaryOp(">",Id("a"),Id("b")),Id("c")),BinaryOp("<=",BinaryOp("<",Id("d"),Id("e")),Id("f"))))))))

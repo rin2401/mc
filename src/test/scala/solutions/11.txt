@@ -1,5 +1,0 @@
-name
-Name
-name1
-NAME2
-<EOF>

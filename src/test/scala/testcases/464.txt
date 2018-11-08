@@ -1,1 +1,0 @@
-void foo(string a){return;}  void main(){foo(true);return;}

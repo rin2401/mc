@@ -1,1 +1,0 @@
-Program(List(FuncDecl(Id("main"),List(),IntType,Block(List(),List(If(Id("exp1"),Block(List(),List()),Some(Block(List(),List()))))))))
