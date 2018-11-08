@@ -1,24 +1,15 @@
-*.class
-*.log
+bin/
+result/
 target/
-result.txt
-
-\.DS_Store
+src/test/scala/solutions/
+src/test/scala/testcases/
 
 \.idea/
-
 \.metadata/
-
 \.settings/
+\.project/
 
-bin/
-
-result/
-
+\.DS_Store
 \.cache-main
-
 \.cache-tests
-
 \.classpath
-
-\.project
